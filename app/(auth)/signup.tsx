@@ -31,7 +31,7 @@ export default function SignInScreen() {
             }>
             <ThemedView style={styles.mainContainer}>
                 <ThemedView style={styles.titleContainer}>
-                    <ThemedText type="title"> Back!</ThemedText>
+                    <ThemedText type="title">Welcome Back!</ThemedText>
                     <HelloWave />
                 </ThemedView>
 
@@ -69,8 +69,8 @@ export default function SignInScreen() {
                 </ThemedView>
 
                 <ThemedView style={styles.signUp}>
-                    <ThemedText type="default">Don't have an account yet?</ThemedText>
-                    <ThemedText type="link" onPress={() => navigation.navigate('(auth)')}> Sign Up</ThemedText>
+                    <ThemedText type="default">Already have an account?</ThemedText>
+                    <ThemedText type="link" onPress={() => navigation.navigate('index')}> Sign In</ThemedText>
                 </ThemedView>
             </ThemedView>
         </ParallaxScrollView >

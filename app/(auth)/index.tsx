@@ -70,7 +70,7 @@ export default function SignInScreen() {
 
                 <ThemedView style={styles.signUp}>
                     <ThemedText type="default">Don't have an account yet?</ThemedText>
-                    <ThemedText type="link" onPress={() => navigation.navigate('(auth)/signup')}> Sign Up</ThemedText>
+                    <ThemedText type="link" onPress={() => navigation.navigate('signup')}> Sign Up</ThemedText>
                 </ThemedView>
             </ThemedView>
         </ParallaxScrollView >
