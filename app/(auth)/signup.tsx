@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, Alert, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-import ParallaxScrollView from '@/components/ParallaxScrollView';
 
 // Themed components
 import { ThemedView } from '@/components/Themed/ThemedView';
@@ -11,91 +9,125 @@ import { ThemedText } from '@/components/Themed/ThemedText';
 import { ThemedTextInput } from '@/components/Themed/ThemedTextInput';
 import { ThemedButton } from '@/components/Themed/ThemedButton';
 
-// Custom components
-import { HelloWave } from '@/components/HelloWave';
-
-export default function SignInScreen() {
+export default function SignUpScreen() {
     const navigation = useNavigation();
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
+    const [birthday, setBirthday] = useState('');
+    const [sex, setSex] = useState('');
+
+    const handleSignUp = async () => {
+        try {
+            // Add your sign up logic here
+            console.log("Sign up successful");
+            navigation.reset({
+                index: 0,
+                routes: [{ name: '(tabs)' }],
+            });
+        } catch (error) {
+            console.log("Error in handleSignUp", error);
+            Alert.alert('Error', 'Failed to sign up. Please check your credentials.');
+        }
+    };
 
     return (
-        <ParallaxScrollView
-            headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-            headerImage={
+        <ThemedView style={styles.mainContainer}>
+            <View style={styles.profileImageContainer}>
                 <Image
-                    source={require('@/assets/images/partial-react-logo.png')}
-                    style={styles.reactLogo}
+                    source={{ uri: 'https://via.placeholder.com/100' }}
+                    style={styles.profileImage}
                 />
-            }>
-            <ThemedView style={styles.mainContainer}>
-                <ThemedView style={styles.titleContainer}>
-                    <ThemedText type="title">Welcome Back!</ThemedText>
-                    <HelloWave />
-                </ThemedView>
+                <MaterialCommunityIcons name="pencil" size={24} color="black" style={styles.editIcon} />
+            </View>
 
-                <ThemedView style={styles.inputContainer}>
-                    <ThemedText style={styles.label} >Email</ThemedText>
-                    <ThemedTextInput
-                        style={styles.input}
-                        placeholder="Enter email..."
-                        value={email}
-                        onChangeText={setEmail}
-                    />
-                </ThemedView>
-
-                <ThemedView style={styles.inputContainer}>
-                    <ThemedText style={styles.label} >Password</ThemedText>
-                    <ThemedTextInput
-                        style={styles.input}
-                        placeholder="Enter password..."
-                        secureTextEntry={!showPassword}
-                        value={password}
-                        onChangeText={setPassword}
-                    />
-                </ThemedView>
-
-                <ThemedView style={styles.forgotPassword}>
-                    <ThemedText type="default">Forgot password?</ThemedText>
-                </ThemedView>
-
-                <ThemedView style={styles.signInButton}>
-                    <ThemedButton
-                        title="Sign In"
-                        onPress={() => navigation.navigate('(tabs)')}
-                        type="primary"
-                    />
-                </ThemedView>
-
-                <ThemedView style={styles.signUp}>
-                    <ThemedText type="default">Already have an account?</ThemedText>
-                    <ThemedText type="link" onPress={() => navigation.navigate('index')}> Sign In</ThemedText>
-                </ThemedView>
+            <ThemedView style={styles.inputContainer}>
+                <ThemedText style={styles.label}>Username</ThemedText>
+                <ThemedTextInput
+                    style={styles.input}
+                    placeholder="Enter username..."
+                    value={username}
+                    onChangeText={setUsername}
+                />
             </ThemedView>
-        </ParallaxScrollView >
+
+            <ThemedView style={styles.inputContainer}>
+                <ThemedText style={styles.label}>Email</ThemedText>
+                <ThemedTextInput
+                    style={styles.input}
+                    placeholder="Enter email..."
+                    value={email}
+                    onChangeText={setEmail}
+                />
+            </ThemedView>
+
+            <ThemedView style={styles.inputContainer}>
+                <ThemedText style={styles.label}>Password</ThemedText>
+                <ThemedTextInput
+                    style={styles.input}
+                    placeholder="Enter password..."
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                />
+            </ThemedView>
+
+            <ThemedView style={styles.inputContainer}>
+                <ThemedText style={styles.label}>Birthday</ThemedText>
+                <ThemedTextInput
+                    style={styles.input}
+                    placeholder="Set birthday"
+                    value={birthday}
+                    onChangeText={setBirthday}
+                />
+            </ThemedView>
+
+            <ThemedView style={styles.inputContainer}>
+                <ThemedText style={styles.label}>Sex</ThemedText>
+                <ThemedTextInput
+                    style={styles.input}
+                    placeholder="Set sex"
+                    value={sex}
+                    onChangeText={setSex}
+                />
+            </ThemedView>
+
+            <ThemedView style={styles.signUpButton}>
+                <ThemedButton
+                    title="Sign Up"
+                    onPress={handleSignUp}
+                    type="primary"
+                />
+            </ThemedView>
+
+            <ThemedView style={styles.signIn}>
+                <ThemedText type="default">Have an account already?</ThemedText>
+                <ThemedText type="link" onPress={() => navigation.navigate('index')}> Sign In</ThemedText>
+            </ThemedView>
+        </ThemedView>
     );
 }
 
 const styles = StyleSheet.create({
-    reactLogo: {
-        height: 178,
-        width: 290,
-        bottom: 0,
-        left: 0,
-        position: 'absolute',
-    },
     mainContainer: {
+        flex: 1,
+        paddingTop: 50,
         padding: 20,
-        alignSelf: 'center',
-        width: '90%',
     },
-    titleContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
+    profileImageContainer: {
         alignSelf: 'center',
-        paddingBottom: 40,
-        gap: 8,
+        marginBottom: 20,
+        position: 'relative',
+    },
+    profileImage: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+    },
+    editIcon: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
     },
     inputContainer: {
         marginBottom: 10,
@@ -109,16 +141,13 @@ const styles = StyleSheet.create({
         height: 40,
         paddingLeft: 10,
     },
-    forgotPassword: {
-        alignItems: 'flex-end',
-    },
-    signInButton: {
+    signUpButton: {
         paddingVertical: 15,
+        marginTop: 20,
     },
-    signUp: {
+    signIn: {
         alignSelf: 'center',
         alignItems: 'center',
-        marginTop: 10,
         flexDirection: 'row',
     },
 });

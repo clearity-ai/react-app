@@ -76,7 +76,7 @@ export default function SignInScreen() {
                 </ThemedView>
 
                 <ThemedView style={styles.forgotPassword}>
-                    <ThemedText type="default">Forgot password?</ThemedText>
+                    <ThemedText type="small">Forgot password?</ThemedText>
                 </ThemedView>
 
                 <ThemedView style={styles.signInButton}>
@@ -105,9 +105,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     mainContainer: {
+        flex: 1,
         padding: 20,
-        alignSelf: 'center',
-        width: '90%',
     },
     titleContainer: {
         flexDirection: 'row',
@@ -133,11 +132,12 @@ const styles = StyleSheet.create({
     },
     signInButton: {
         paddingVertical: 15,
+        marginTop: 20,
     },
     signUp: {
         alignSelf: 'center',
         alignItems: 'center',
-        marginTop: 10,
+        marginTop: 5,
         flexDirection: 'row',
     },
 });
