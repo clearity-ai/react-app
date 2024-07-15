@@ -1,4 +1,5 @@
 import { Pressable, type PressableProps, Text, StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
 
@@ -49,15 +50,14 @@ const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 15,
+        paddingVertical: wp('3%'),
+        paddingHorizontal: wp('5%'),
+        borderRadius: wp('4%'),
         elevation: 3,
     },
     text: {
-        fontSize: 16,
-        lineHeight: 21,
+        fontSize: wp('5%'),
         fontWeight: 'bold',
-        letterSpacing: 0.25,
+        letterSpacing: 0.3,
     },
 });

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, Image, Alert, View } from 'react-native';
+import { ScrollView, StyleSheet, Image, Alert, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 // Themed components
 import { ThemedView } from '@/components/Themed/ThemedView';
@@ -32,97 +33,99 @@ export default function SignUpScreen() {
     };
 
     return (
-        <ThemedView style={styles.mainContainer}>
-            <View style={styles.profileImageContainer}>
-                <Image
-                    source={{ uri: 'https://via.placeholder.com/100' }}
-                    style={styles.profileImage}
-                />
-                <MaterialCommunityIcons name="pencil" size={24} color="black" style={styles.editIcon} />
-            </View>
+        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+            <>
+                <ThemedView style={styles.mainContainer}>
+                    <View style={styles.profileImageContainer}>
+                        <Image
+                            source={{ uri: 'https://via.placeholder.com/100' }}
+                            style={styles.profileImage}
+                        />
+                        <MaterialCommunityIcons name="pencil" size={24} color="black" style={styles.editIcon} />
+                    </View>
 
-            <ThemedView style={styles.inputContainer}>
-                <ThemedText style={styles.label}>Username</ThemedText>
-                <ThemedTextInput
-                    style={styles.input}
-                    placeholder="Enter username..."
-                    value={username}
-                    onChangeText={setUsername}
-                />
-            </ThemedView>
+                    <ThemedView style={styles.inputContainer}>
+                        <ThemedText type="label" style={styles.label}>Username</ThemedText>
+                        <ThemedTextInput
+                            placeholder="Enter username..."
+                            value={username}
+                            onChangeText={setUsername}
+                        />
+                    </ThemedView>
 
-            <ThemedView style={styles.inputContainer}>
-                <ThemedText style={styles.label}>Email</ThemedText>
-                <ThemedTextInput
-                    style={styles.input}
-                    placeholder="Enter email..."
-                    value={email}
-                    onChangeText={setEmail}
-                />
-            </ThemedView>
+                    <ThemedView style={styles.inputContainer}>
+                        <ThemedText type="label" style={styles.label}>Email</ThemedText>
+                        <ThemedTextInput
+                            placeholder="Enter email..."
+                            value={email}
+                            onChangeText={setEmail}
+                        />
+                    </ThemedView>
 
-            <ThemedView style={styles.inputContainer}>
-                <ThemedText style={styles.label}>Password</ThemedText>
-                <ThemedTextInput
-                    style={styles.input}
-                    placeholder="Enter password..."
-                    secureTextEntry
-                    value={password}
-                    onChangeText={setPassword}
-                />
-            </ThemedView>
+                    <ThemedView style={styles.inputContainer}>
+                        <ThemedText type="label" style={styles.label}>Password</ThemedText>
+                        <ThemedTextInput
+                            placeholder="Enter password..."
+                            secureTextEntry
+                            value={password}
+                            onChangeText={setPassword}
+                        />
+                    </ThemedView>
 
-            <ThemedView style={styles.inputContainer}>
-                <ThemedText style={styles.label}>Birthday</ThemedText>
-                <ThemedTextInput
-                    style={styles.input}
-                    placeholder="Set birthday"
-                    value={birthday}
-                    onChangeText={setBirthday}
-                />
-            </ThemedView>
+                    <ThemedView style={styles.inputContainer}>
+                        <ThemedText type="label" style={styles.label}>Birthday</ThemedText>
+                        <ThemedTextInput
+                            placeholder="Set birthday"
+                            value={birthday}
+                            onChangeText={setBirthday}
+                        />
+                    </ThemedView>
 
-            <ThemedView style={styles.inputContainer}>
-                <ThemedText style={styles.label}>Sex</ThemedText>
-                <ThemedTextInput
-                    style={styles.input}
-                    placeholder="Set sex"
-                    value={sex}
-                    onChangeText={setSex}
-                />
-            </ThemedView>
+                    <ThemedView style={styles.inputContainer}>
+                        <ThemedText type="label" style={styles.label}>Sex</ThemedText>
+                        <ThemedTextInput
+                            placeholder="Set sex"
+                            value={sex}
+                            onChangeText={setSex}
+                        />
+                    </ThemedView>
 
-            <ThemedView style={styles.signUpButton}>
-                <ThemedButton
-                    title="Sign Up"
-                    onPress={handleSignUp}
-                    type="primary"
-                />
-            </ThemedView>
+                    <ThemedView style={styles.signUpButton}>
+                        <ThemedButton
+                            title="Sign Up"
+                            onPress={handleSignUp}
+                            type="primary"
+                        />
+                    </ThemedView>
 
-            <ThemedView style={styles.signIn}>
-                <ThemedText type="default">Have an account already?</ThemedText>
-                <ThemedText type="link" onPress={() => navigation.navigate('index')}> Sign In</ThemedText>
-            </ThemedView>
-        </ThemedView>
+                    <ThemedView style={styles.signIn}>
+                        <ThemedText type="default">Have an account already?</ThemedText>
+                        <ThemedText type="link" onPress={() => navigation.navigate('index')}> Sign In</ThemedText>
+                    </ThemedView>
+                </ThemedView>
+            </>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
+    scrollViewContainer: {
+        flexGrow: 1,
+    },
     mainContainer: {
         flex: 1,
-        paddingTop: 50,
-        padding: 20,
+        padding: wp('6%'),
+        paddingTop: wp('8%'),
     },
     profileImageContainer: {
         alignSelf: 'center',
-        marginBottom: 20,
+        margin: wp('7%'),
         position: 'relative',
     },
     profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+        width: wp('30%'),
+        height: wp('30%'),
+        borderRadius: wp('15%'),
     },
     editIcon: {
         position: 'absolute',
@@ -130,24 +133,18 @@ const styles = StyleSheet.create({
         right: 0,
     },
     inputContainer: {
-        marginBottom: 10,
+        marginBottom: wp('7%'),
     },
     label: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    input: {
-        height: 40,
-        paddingLeft: 10,
+        marginBottom: wp('2.5%'),
     },
     signUpButton: {
-        paddingVertical: 15,
-        marginTop: 20,
+        marginTop: wp('5%'),
     },
     signIn: {
         alignSelf: 'center',
         alignItems: 'center',
         flexDirection: 'row',
+        marginTop: wp('6%'),
     },
 });

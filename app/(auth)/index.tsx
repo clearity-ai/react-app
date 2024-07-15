@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
@@ -55,9 +55,8 @@ export default function SignInScreen() {
                 </ThemedView>
 
                 <ThemedView style={styles.inputContainer}>
-                    <ThemedText style={styles.label}>Email</ThemedText>
+                    <ThemedText type="label" style={styles.label}>Email</ThemedText>
                     <ThemedTextInput
-                        style={styles.input}
                         placeholder="Enter email..."
                         value={email}
                         onChangeText={setEmail}
@@ -65,9 +64,8 @@ export default function SignInScreen() {
                 </ThemedView>
 
                 <ThemedView style={styles.inputContainer}>
-                    <ThemedText style={styles.label}>Password</ThemedText>
+                    <ThemedText type="label" style={styles.label}>Password</ThemedText>
                     <ThemedTextInput
-                        style={styles.input}
                         placeholder="Enter password..."
                         secureTextEntry={!showPassword}
                         value={password}
@@ -76,7 +74,7 @@ export default function SignInScreen() {
                 </ThemedView>
 
                 <ThemedView style={styles.forgotPassword}>
-                    <ThemedText type="small">Forgot password?</ThemedText>
+                    <ThemedText type="link_small">Forgot password?</ThemedText>
                 </ThemedView>
 
                 <ThemedView style={styles.signInButton}>
@@ -106,38 +104,33 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
         flex: 1,
-        padding: 20,
+        padding: wp('5%'),
     },
     titleContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'center',
-        paddingBottom: 40,
+        paddingTop: wp('10%'),
+        paddingBottom: wp('10%'),
         gap: 8,
     },
     inputContainer: {
-        marginBottom: 10,
+        marginBottom: wp('7%'),
     },
     label: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    input: {
-        height: 40,
-        paddingLeft: 10,
+        marginBottom: wp('2.5%'),
     },
     forgotPassword: {
+        marginTop: -wp('5%'),
         alignItems: 'flex-end',
     },
     signInButton: {
-        paddingVertical: 15,
-        marginTop: 20,
+        marginTop: wp('12%'),
     },
     signUp: {
         alignSelf: 'center',
         alignItems: 'center',
-        marginTop: 5,
+        marginTop: wp('6%'),
         flexDirection: 'row',
     },
 });

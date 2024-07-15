@@ -1,4 +1,5 @@
 import { TextInput, type TextInputProps, StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
 
@@ -17,15 +18,16 @@ export function ThemedTextInput({
   const placeholderTextColor = useThemeColor({ light: lightColor, dark: darkColor }, 'textInputPlaceholder');
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'textInputBackground');
   const borderWidth = 0;
-  const borderRadius = 15;
+  const borderRadius = wp('2%');
 
   return (
     <TextInput
       style={[
-        { color, backgroundColor, borderWidth, borderRadius },
+        { color, backgroundColor, borderWidth, borderRadius, fontSize: wp('4%'), paddingVertical: wp('2%'), justifyContent: 'center', paddingLeft: wp('2%'), },
         style,
       ]}
       placeholderTextColor={placeholderTextColor}
+
       {...rest}
     />
   );

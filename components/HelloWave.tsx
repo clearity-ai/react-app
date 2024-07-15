@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -30,8 +31,7 @@ export function HelloWave() {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 28,
-    lineHeight: 32,
-    marginTop: -6,
+    fontSize: wp('8%'),
+    marginTop: -wp('1%'),
   },
 });

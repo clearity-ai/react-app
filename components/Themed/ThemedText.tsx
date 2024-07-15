@@ -1,11 +1,12 @@
 import { Text, type TextProps, StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'small' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: 'default' | 'small' | 'title' | 'subtitle' | 'link' | 'link_small' | 'label';
 };
 
 export function ThemedText({
@@ -15,7 +16,13 @@ export function ThemedText({
   type = 'default',
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+
+  let color;
+  if (type === 'link' || type === 'link_small') {
+    color = useThemeColor({ light: lightColor, dark: darkColor }, 'tint');
+  } else {
+    color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  }
 
   return (
     <Text
@@ -24,9 +31,10 @@ export function ThemedText({
         type === 'default' ? styles.default : undefined,
         type === 'small' ? styles.small : undefined,
         type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
         type === 'subtitle' ? styles.subtitle : undefined,
+        type === 'label' ? styles.label : undefined,
         type === 'link' ? styles.link : undefined,
+        type === 'link_small' ? styles.link_small : undefined,
         style,
       ]}
       {...rest}
@@ -36,30 +44,27 @@ export function ThemedText({
 
 const styles = StyleSheet.create({
   default: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: wp('4%'),  // Responsive font size
   },
   small: {
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  defaultSemiBold: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: '600',
+    fontSize: wp('3.5%'),
   },
   title: {
-    fontSize: 30,
+    fontSize: wp('8%'),
     fontWeight: 'bold',
-    lineHeight: 32,
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: wp('5%'),
     fontWeight: 'bold',
   },
   link: {
-    lineHeight: 30,
-    fontSize: 16,
-    color: '#0a7ea4',
+    fontSize: wp('4%'),
+  },
+  link_small: {
+    fontSize: wp('3.5%'),
+  },
+  label: {
+    fontSize: wp('4%'),
+    fontWeight: 'bold',
   },
 });
