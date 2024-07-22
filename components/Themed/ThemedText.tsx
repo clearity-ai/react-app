@@ -6,7 +6,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'small' | 'title' | 'subtitle' | 'link' | 'link_small' | 'label';
+  type?: 'default' | 'large' | 'small' | 'title' | 'subtitle' | 'link' | 'link_small' | 'label';
 };
 
 export function ThemedText({
@@ -29,6 +29,7 @@ export function ThemedText({
       style={[
         { color },
         type === 'default' ? styles.default : undefined,
+        type === 'large' ? styles.large : undefined,
         type === 'small' ? styles.small : undefined,
         type === 'title' ? styles.title : undefined,
         type === 'subtitle' ? styles.subtitle : undefined,
@@ -46,16 +47,19 @@ const styles = StyleSheet.create({
   default: {
     fontSize: wp('4%'),  // Responsive font size
   },
+  large: {
+    fontSize: wp('5%'),
+  },
   small: {
     fontSize: wp('3.5%'),
   },
   title: {
     fontSize: wp('8%'),
-    fontWeight: 'bold',
+    fontWeight: 'semibold',
   },
   subtitle: {
     fontSize: wp('5%'),
-    fontWeight: 'bold',
+    fontWeight: 'semibold',
   },
   link: {
     fontSize: wp('4%'),
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: wp('3.5%'),
   },
   label: {
-    fontSize: wp('4%'),
-    fontWeight: 'bold',
+    fontSize: wp('4.5%'),
+    fontWeight: 'semibold',
   },
 });

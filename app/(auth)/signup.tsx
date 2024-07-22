@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         marginBottom: wp('2.5%'),
     },
     signUpButton: {
-        marginTop: wp('5%'),
+        marginTop: wp('10%'),
     },
     signIn: {
         alignSelf: 'center',

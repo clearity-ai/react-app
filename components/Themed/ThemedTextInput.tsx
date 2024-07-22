@@ -15,8 +15,8 @@ export function ThemedTextInput({
   ...rest
 }: ThemedTextInputProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
-  const placeholderTextColor = useThemeColor({ light: lightColor, dark: darkColor }, 'textInputPlaceholder');
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'textInputBackground');
+  const placeholderTextColor = useThemeColor({ light: lightColor, dark: darkColor }, 'textPlaceholder');
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'textPlaceholderBackground');
   const borderWidth = 0;
   const borderRadius = wp('2%');
 
