@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Image, Alert, View } from 'react-native';
+import { ScrollView, StyleSheet, Image, Alert, View, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import dayjs from 'dayjs';
 
 // Themed components
 import { ThemedView } from '@/components/Themed/ThemedView';
 import { ThemedText } from '@/components/Themed/ThemedText';
 import { ThemedTextInput } from '@/components/Themed/ThemedTextInput';
 import { ThemedButton } from '@/components/Themed/ThemedButton';
+import { ThemedDropdownInput } from '@/components/Themed/ThemedDropdownInput';
+import { ThemedDatePicker } from '@/components/Themed/ThemedDatePicker';
+
+// Hooks
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 export default function SignUpScreen() {
+    const tint = useThemeColor({}, 'tint');
     const navigation = useNavigation();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [birthday, setBirthday] = useState('');
+    const [birthdate, setBirthdate] = useState(dayjs());
     const [sex, setSex] = useState('');
 
     const handleSignUp = async () => {
@@ -37,11 +44,15 @@ export default function SignUpScreen() {
             <>
                 <ThemedView style={styles.mainContainer}>
                     <View style={styles.profileImageContainer}>
-                        <Image
-                            source={{ uri: 'https://via.placeholder.com/100' }}
-                            style={styles.profileImage}
-                        />
-                        <MaterialCommunityIcons name="pencil" size={24} color="black" style={styles.editIcon} />
+                        <Pressable
+                            onPress={() => console.log('Change profile image')}
+                        >
+                            <Image
+                                source={require('@/assets/images/unicorn.png')}
+                                style={styles.profileImage}
+                            />
+                            <MaterialCommunityIcons name="pencil" size={wp('6%')} color={tint} style={styles.editIcon} />
+                        </Pressable>
                     </View>
 
                     <ThemedView style={styles.inputContainer}>
@@ -73,20 +84,20 @@ export default function SignUpScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.inputContainer}>
-                        <ThemedText type="label" style={styles.label}>Birthday</ThemedText>
-                        <ThemedTextInput
-                            placeholder="Set birthday"
-                            value={birthday}
-                            onChangeText={setBirthday}
+                        <ThemedText type="label" style={styles.labelBirthdate} >Birthday</ThemedText>
+                        <ThemedDatePicker
+                            date={birthdate}
+                            setDate={setBirthdate}
                         />
                     </ThemedView>
 
                     <ThemedView style={styles.inputContainer}>
                         <ThemedText type="label" style={styles.label}>Sex</ThemedText>
-                        <ThemedTextInput
-                            placeholder="Set sex"
+                        <ThemedDropdownInput
+                            label='Select Sex...'
+                            items={[{ label: 'female', value: 'female' }, { label: 'male', value: 'male' }, { label: 'other', value: 'other' }]}
                             value={sex}
-                            onChangeText={setSex}
+                            setValue={setSex}
                         />
                     </ThemedView>
 
@@ -104,7 +115,7 @@ export default function SignUpScreen() {
                     </ThemedView>
                 </ThemedView>
             </>
-        </ScrollView>
+        </ScrollView >
     );
 }
 
@@ -114,7 +125,7 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
         flex: 1,
-        padding: wp('6%'),
+        padding: wp('7%'),
         paddingTop: wp('8%'),
     },
     profileImageContainer: {
@@ -129,14 +140,20 @@ const styles = StyleSheet.create({
     },
     editIcon: {
         position: 'absolute',
-        bottom: 0,
-        right: 0,
+        top: -wp('2%'),
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        borderRadius: wp('8%'),
+        padding: wp('2%'),
+        right: wp('0.5%'),
     },
     inputContainer: {
-        marginBottom: wp('7%'),
+        marginBottom: wp('6%'),
     },
     label: {
         marginBottom: wp('2.5%'),
+    },
+    labelBirthdate: {
+        marginBottom: wp('3.5%'),
     },
     signUpButton: {
         marginTop: wp('10%'),
