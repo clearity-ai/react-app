@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Image, Alert, View, Pressable } from 'react-nat
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { launchImageLibrary } from 'react-native-image-picker';
 import dayjs from 'dayjs';
 
 // Themed components
@@ -15,6 +16,9 @@ import { ThemedDatePicker } from '@/components/Themed/ThemedDatePicker';
 
 // Hooks
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { useAuth } from '@/hooks/useAuth';
+
+const defaultProfilePicture = require('@/assets/images/default-profile-picture.png');
 
 export default function SignUpScreen() {
     const tint = useThemeColor({}, 'tint');
@@ -24,11 +28,16 @@ export default function SignUpScreen() {
     const [password, setPassword] = useState('');
     const [birthdate, setBirthdate] = useState(dayjs());
     const [sex, setSex] = useState('');
+    const [profilePicture, setProfilePicture] = useState(null);
+    const { signUp } = useAuth();
 
     const handleSignUp = async () => {
         try {
             // Add your sign up logic here
-            console.log("Sign up successful");
+            await signUp(email, password, username, birthdate, sex, profilePicture);
+            // Reset to default values in case for next sign up screen visit
+            setProfilePicture(null);
+            // Navigate to the next screen
             navigation.reset({
                 index: 0,
                 routes: [{ name: '(tabs)' }],
@@ -39,16 +48,40 @@ export default function SignUpScreen() {
         }
     };
 
+    const changeProfilePicture = () => {
+        console.log("Current profile picture", profilePicture);
+        launchImageLibrary({
+            mediaType: 'photo',
+            includeBase64: false,
+            maxHeight: 200,
+            maxWidth: 200,
+        }, response => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.errorCode) {
+                console.log('ImagePicker Error: ', response.errorMessage);
+            } else {
+                console.log('ImagePicker Response: ', response);
+                const selectedImage = response.assets[0];
+                setProfilePicture({
+                    uri: selectedImage.uri,
+                    type: selectedImage.type,
+                    name: selectedImage.fileName
+                });
+            }
+        });
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
             <>
                 <ThemedView style={styles.mainContainer}>
                     <View style={styles.profileImageContainer}>
                         <Pressable
-                            onPress={() => console.log('Change profile image')}
+                            onPress={changeProfilePicture}
                         >
                             <Image
-                                source={require('@/assets/images/unicorn.png')}
+                                source={profilePicture ? { uri: profilePicture.uri } : defaultProfilePicture}
                                 style={styles.profileImage}
                             />
                             <MaterialCommunityIcons name="pencil" size={wp('6%')} color={tint} style={styles.editIcon} />

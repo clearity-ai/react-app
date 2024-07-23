@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { signIn as apiSignIn, signOut as apiSignOut, setToken as apiSetToken, getUser as apiGetUser } from '@/api/user';
+import { signIn as apiSignIn, signOut as apiSignOut, setToken as apiSetToken, getUser as apiGetUser, setProfilePicture as apiSetProfilePicture, signUp as apiSignUp } from '@/api/user';
 
 export const AuthContext = createContext();
 
@@ -25,6 +25,12 @@ export const AuthProvider = ({ children }) => {
                         sex: user_data.sex,
                         birthdate: user_data.birthdate
                     });
+
+                    pp = await AsyncStorage.getItem('profilePicture');
+                    if (!pp) {
+                        await apiSetProfilePicture();
+                    }
+
                     console.log("Auth Provider is mounted, token is found and user set.")
                     navigation.navigate('(tabs)');
                 } else {
@@ -71,7 +77,17 @@ export const AuthProvider = ({ children }) => {
             birthdate: user_data.birthdate
         });
 
+        await apiSetProfilePicture();
+
         setLoading(false);
+    };
+
+    const signUp = async (email, password, username, birthdate, sex, profilePicture) => {
+        setLoading(true);
+        const date = new Date(birthdate);
+        const formattedBirthdate = date.toISOString().split('T')[0];
+        await apiSignUp(email, password, username, formattedBirthdate, sex, profilePicture);
+        await signIn(email, password);
     };
 
     const signOut = async () => {
@@ -88,6 +104,7 @@ export const AuthProvider = ({ children }) => {
 
     const contextValue = useMemo(() => ({
         user,
+        signUp,
         signIn,
         signOut,
         loading,

@@ -12,15 +12,25 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "jsengine": "hermes",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.clearityai.app"
+      "bundleIdentifier": "com.clearityai.app",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "The app needs access to your photo library to allow you to upload selected photos",
+        "NSCameraUsageDescription": "The app needs access to your camera to allow you to take photos",
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "bundler": "metro",
