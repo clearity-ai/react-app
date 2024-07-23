@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as FileSystem from 'expo-file-system';
 import api from '@/api/main';
+import defaultProfilePicture from '@/assets/images/default-profile-picture.png';
 
 export const signUp = async (email, password, username, formattedBirthdate, sex, profilePicture) => {
     try {
@@ -60,13 +62,28 @@ export const getUser = async () => {
     }
 }
 
-const defaultProfilePicture = require('@/assets/images/default-profile-picture.png');
 export const setProfilePicture = async () => {
     try {
-        const response = await api.get(`/user/get-profile-picture/`);
-        console.log('Profile Picture Response Status:', response.status);
-        await AsyncStorage.setItem('profilePicture', response.data);
-        console.log('Profile Picture:', response.data);
+        const response = await api.get(`/user/get-profile-picture/`, { responseType: 'arraybuffer' });
+        console.log("Info:", response.headers['content-type']);
+        if (response.status === 200) {
+
+            const contentType = response.headers['content-type'];
+            let extension = 'png'; // default extension
+            if (contentType === 'image/jpeg' || contentType === 'image/jpg') {
+                extension = 'jpg';
+            } else if (contentType === 'image/png') {
+                extension = 'png';
+            }
+
+            const base64Image = response.request._response;
+            const profilePictureUri = `${FileSystem.documentDirectory}profile_picture.${extension}`;
+            await FileSystem.writeAsStringAsync(profilePictureUri, base64Image, { encoding: FileSystem.EncodingType.Base64 });
+            await AsyncStorage.setItem('profilePicture', JSON.stringify({ uri: profilePictureUri }));
+            console.log('Stored Profile Picture URI:', profilePictureUri);
+        } else {
+            console.error("Profile Picture exists but error in processing the response.");
+        }
     } catch (error) {
         if (error.response && error.response.status === 404) {
             console.log('Profile picture not found, setting default profile picture.');

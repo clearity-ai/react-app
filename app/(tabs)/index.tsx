@@ -1,4 +1,6 @@
+import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet, Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Themed components
 import { HelloWave } from '@/components/HelloWave';
@@ -6,7 +8,27 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/Themed/ThemedText';
 import { ThemedView } from '@/components/Themed/ThemedView';
 
+const defaultProfilePicture = require('@/assets/images/default-profile-picture.png');
+
 export default function HomeScreen() {
+  const [profilePicture, setProfilePicture] = useState({ uri: defaultProfilePicture });
+
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      try {
+        const profilePictureUri = await AsyncStorage.getItem('profilePicture');
+        console.log('profilePictureUri', profilePictureUri);
+        if (profilePictureUri) {
+          setProfilePicture(JSON.parse(profilePictureUri));
+        }
+      } catch (error) {
+        console.error('Error fetching profile picture:', error);
+      }
+    };
+
+    fetchProfilePicture();
+  }, []);
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -19,6 +41,9 @@ export default function HomeScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Hey There!</ThemedText>
         <HelloWave />
+      </ThemedView>
+      <ThemedView style={styles.profileContainer}>
+        <Image source={profilePicture} style={styles.profileImage} />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
@@ -56,6 +81,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  profileContainer: {
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  profileImage: {
+    height: 100,
+    width: 100,
+    borderRadius: 50,
   },
   stepContainer: {
     gap: 8,
