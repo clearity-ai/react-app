@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Image, Alert, View, Pressable } from 'react-native';
+import { StyleSheet, Image, Alert, View, Pressable } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -73,7 +74,7 @@ export default function SignUpScreen() {
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContainer}>
             <>
                 <ThemedView style={styles.mainContainer}>
                     <View style={styles.profileImageContainer}>
@@ -148,7 +149,7 @@ export default function SignUpScreen() {
                     </ThemedView>
                 </ThemedView>
             </>
-        </ScrollView >
+        </KeyboardAwareScrollView  >
     );
 }
 

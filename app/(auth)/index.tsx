@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Image, Alert } from 'react-native';
+import { StyleSheet, Image, Alert } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
@@ -42,7 +43,7 @@ export default function SignInScreen() {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContainer}>
             <>
                 <ThemedView style={styles.mainContainer}>
                     <ThemedView style={styles.titleContainer}>
@@ -99,7 +100,7 @@ export default function SignInScreen() {
                     </ThemedView>
                 </ThemedView>
             </>
-        </ScrollView >
+        </KeyboardAwareScrollView >
     );
 }
 
