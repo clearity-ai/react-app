@@ -64,7 +64,7 @@ const defaultProfilePicture = require('@/assets/images/default-profile-picture.p
 export const setProfilePicture = async () => {
     try {
         const response = await api.get(`/user/get-profile-picture/`);
-        log('Profile Picture Response Status:', response.status);
+        console.log('Profile Picture Response Status:', response.status);
         await AsyncStorage.setItem('profilePicture', response.data);
         console.log('Profile Picture:', response.data);
     } catch (error) {
