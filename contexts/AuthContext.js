@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         try {
             await apiSignOut();
-            setUser();
+            setUser({});
         } catch (error) {
             console.error('Error during sign out:', error);
         } finally {

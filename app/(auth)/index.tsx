@@ -5,10 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 // Themed components
-import { ThemedView } from '@/components/Themed/ThemedView';
-import { ThemedText } from '@/components/Themed/ThemedText';
-import { ThemedTextInput } from '@/components/Themed/ThemedTextInput';
-import { ThemedButton } from '@/components/Themed/ThemedButton';
+import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from '@/components/input/ThemedText';
+import { ThemedTextInput } from '@/components/input/ThemedTextInput';
+import { ThemedButton } from '@/components/input/ThemedButton';
 
 // Custom components
 import { HelloWave } from '@/components/HelloWave';

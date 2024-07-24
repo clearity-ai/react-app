@@ -50,6 +50,7 @@ export const Colors = {
     tintPrimaryDarker: primary400,
     tintSecondaryDarker: secondary700,
     tintNeutral: neutral800,
+    tintNeutralLighter: neutral400,
     tabIconDefault: '#687076',
     tabIconSelected: primary200,
     primaryButtonBackground: primary200,

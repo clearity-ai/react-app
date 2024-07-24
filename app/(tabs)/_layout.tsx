@@ -3,6 +3,7 @@ import React from 'react';
 
 // Components
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { ThemedHeader } from '@/components/navigation/Header';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
 // Constants
@@ -16,6 +17,7 @@ export default function TabLayout() {
 
   return (
     <ProtectedRoute>
+      <ThemedHeader />
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,

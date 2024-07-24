@@ -8,12 +8,12 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import dayjs from 'dayjs';
 
 // Themed components
-import { ThemedView } from '@/components/Themed/ThemedView';
-import { ThemedText } from '@/components/Themed/ThemedText';
-import { ThemedTextInput } from '@/components/Themed/ThemedTextInput';
-import { ThemedButton } from '@/components/Themed/ThemedButton';
-import { ThemedDropdownInput } from '@/components/Themed/ThemedDropdownInput';
-import { ThemedDatePicker } from '@/components/Themed/ThemedDatePicker';
+import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from '@/components/input/ThemedText';
+import { ThemedTextInput } from '@/components/input/ThemedTextInput';
+import { ThemedButton } from '@/components/input/ThemedButton';
+import { ThemedDropdownInput } from '@/components/input/ThemedDropdownInput';
+import { ThemedDatePicker } from '@/components/input/ThemedDatePicker';
 
 // Hooks
 import { useThemeColor } from '@/hooks/useThemeColor';
