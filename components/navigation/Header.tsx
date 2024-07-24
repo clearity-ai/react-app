@@ -13,7 +13,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 const defaultProfilePicture = require('@/assets/images/default-profile-picture.png');
 
 export const ThemedHeader = () => {
-    const iconColor = useThemeColor({}, 'text');
+    const iconColor = useThemeColor({}, 'tabIconDefault');
     const iconName = 'menu-outline';
     const backgroundColor = useThemeColor({}, 'background');
     const [profilePicture, setProfilePicture] = useState({ uri: defaultProfilePicture });
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: wp('5%'),
-        paddingTop: wp('11%'),
+        paddingTop: wp('10%'),
         paddingBottom: wp('3%'),
     },
     profileContainer: {

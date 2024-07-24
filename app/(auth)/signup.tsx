@@ -90,7 +90,7 @@ export default function SignUpScreen() {
                     </View>
 
                     <ThemedView style={styles.inputContainer}>
-                        <ThemedText type="label" style={styles.label}>Username</ThemedText>
+                        <ThemedText fontSize={wp('4.5%')} fontWeight='semibold' style={styles.label}>Username</ThemedText>
                         <ThemedTextInput
                             placeholder="Enter username..."
                             value={username}
@@ -99,7 +99,7 @@ export default function SignUpScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.inputContainer}>
-                        <ThemedText type="label" style={styles.label}>Email</ThemedText>
+                        <ThemedText fontSize={wp('4.5%')} fontWeight='semibold' style={styles.label}>Email</ThemedText>
                         <ThemedTextInput
                             placeholder="Enter email..."
                             value={email}
@@ -108,7 +108,7 @@ export default function SignUpScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.inputContainer}>
-                        <ThemedText type="label" style={styles.label}>Password</ThemedText>
+                        <ThemedText fontSize={wp('4.5%')} fontWeight='semibold' style={styles.label}>Password</ThemedText>
                         <ThemedTextInput
                             placeholder="Enter password..."
                             secureTextEntry
@@ -118,7 +118,7 @@ export default function SignUpScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.inputContainer}>
-                        <ThemedText type="label" style={styles.labelBirthdate} >Birthday</ThemedText>
+                        <ThemedText fontSize={wp('4.5%')} fontWeight='semibold' style={styles.labelBirthdate} >Birthday</ThemedText>
                         <ThemedDatePicker
                             date={birthdate}
                             setDate={setBirthdate}
@@ -126,7 +126,7 @@ export default function SignUpScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.inputContainer}>
-                        <ThemedText type="label" style={styles.label}>Sex</ThemedText>
+                        <ThemedText fontSize={wp('4.5%')} fontWeight='semibold' style={styles.label}>Sex</ThemedText>
                         <ThemedDropdownInput
                             label='Select Sex...'
                             items={[{ label: 'female', value: 'female' }, { label: 'male', value: 'male' }, { label: 'other', value: 'other' }]}
@@ -144,8 +144,8 @@ export default function SignUpScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.signIn}>
-                        <ThemedText type="default">Have an account already?</ThemedText>
-                        <ThemedText type="link" onPress={() => navigation.navigate('index')}> Sign In</ThemedText>
+                        <ThemedText>Have an account already?</ThemedText>
+                        <ThemedText fontSize={wp('4%')} colorName='tint' onPress={() => navigation.navigate('index')}> Sign In</ThemedText>
                     </ThemedView>
                 </ThemedView>
             </>

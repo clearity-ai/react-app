@@ -4,38 +4,31 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export type ThemedTextProps = TextProps & {
-  lightColor?: string;
-  darkColor?: string;
-  type?: 'default' | 'large' | 'small' | 'title' | 'subtitle' | 'link' | 'link_small' | 'label';
+  colorName?: string;
+  fontSize?: number;
+  fontWeight?: 'normal' | 'bold' | 'semibold';
 };
 
 export function ThemedText({
   style,
-  lightColor,
-  darkColor,
-  type = 'default',
+  colorName,
+  fontSize,
+  fontWeight,
   ...rest
 }: ThemedTextProps) {
-
-  let color;
-  if (type === 'link' || type === 'link_small') {
-    color = useThemeColor({ light: lightColor, dark: darkColor }, 'tint');
-  } else {
-    color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  if (!fontSize) {
+    fontSize = wp('4%');
   }
+  if (!fontWeight) {
+    fontWeight = 'normal';
+  }
+
+  const color = useThemeColor({}, colorName ? colorName : 'text');
 
   return (
     <Text
       style={[
-        { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'large' ? styles.large : undefined,
-        type === 'small' ? styles.small : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'label' ? styles.label : undefined,
-        type === 'link' ? styles.link : undefined,
-        type === 'link_small' ? styles.link_small : undefined,
+        { color, fontSize, fontWeight },
         style,
       ]}
       {...rest}

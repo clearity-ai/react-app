@@ -47,7 +47,7 @@ export default function SignInScreen() {
             <>
                 <ThemedView style={styles.mainContainer}>
                     <ThemedView style={styles.titleContainer}>
-                        <ThemedText type="title">Welcome Back!</ThemedText>
+                        <ThemedText fontSize={wp('8%')} fontWeight="semibold">Welcome Back!</ThemedText>
                         <HelloWave />
                     </ThemedView>
 
@@ -59,12 +59,12 @@ export default function SignInScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.textContainer}>
-                        <ThemedText type="title" style={{ paddingBottom: wp('1.5%'), color: tintGradient }} >Clearity.</ThemedText>
-                        <ThemedText type="large" style={{ textAlign: 'center', color: textFadedColor }} >Find the skincare routine that works best for you!</ThemedText>
+                        <ThemedText fontSize={wp('8%')} fontWeight="semibold" colorName={tintGradient} style={{ paddingBottom: wp('1.5%') }} >Clearity.</ThemedText>
+                        <ThemedText fontSize={wp('4.5%')} fontWeight='semibold' style={{ textAlign: 'center', color: textFadedColor }} >Find the skincare routine that works best for you!</ThemedText>
                     </ThemedView>
 
                     <ThemedView style={styles.inputContainer}>
-                        <ThemedText type="label" style={styles.label}>Email</ThemedText>
+                        <ThemedText fontSize={wp('4.5%')} fontWeight='semibold' style={styles.label}>Email</ThemedText>
                         <ThemedTextInput
                             placeholder="Enter email..."
                             value={email}
@@ -73,7 +73,7 @@ export default function SignInScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.inputContainer}>
-                        <ThemedText type="label" style={styles.label}>Password</ThemedText>
+                        <ThemedText fontSize={wp('4.5%')} fontWeight='semibold' style={styles.label}>Password</ThemedText>
                         <ThemedTextInput
                             placeholder="Enter password..."
                             secureTextEntry={!showPassword}
@@ -83,7 +83,7 @@ export default function SignInScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.forgotPassword}>
-                        <ThemedText type="link_small">Forgot password?</ThemedText>
+                        <ThemedText fontSize={wp('3.5%')} colorName='tint'>Forgot password?</ThemedText>
                     </ThemedView>
 
                     <ThemedView style={styles.signInButton}>
@@ -95,8 +95,8 @@ export default function SignInScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.signUp}>
-                        <ThemedText type="default">Don't have an account yet?</ThemedText>
-                        <ThemedText type="link" onPress={() => navigation.navigate('signup')}> Sign Up</ThemedText>
+                        <ThemedText>Don't have an account yet?</ThemedText>
+                        <ThemedText fontSize={wp('4%')} colorName='tint' onPress={() => navigation.navigate('signup')}> Sign Up</ThemedText>
                     </ThemedView>
                 </ThemedView>
             </>

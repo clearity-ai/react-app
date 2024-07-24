@@ -78,9 +78,11 @@ export const setProfilePicture = async () => {
 
             const base64Image = response.request._response;
             const profilePictureUri = `${FileSystem.documentDirectory}profile_picture.${extension}`;
-            await FileSystem.writeAsStringAsync(profilePictureUri, base64Image, { encoding: FileSystem.EncodingType.Base64 });
-            await AsyncStorage.setItem('profilePicture', JSON.stringify({ uri: profilePictureUri }));
-            console.log('Stored Profile Picture URI:', profilePictureUri);
+            // TODO: Comment out to work in web browser, uncomment to work in mobile
+            // await FileSystem.writeAsStringAsync(profilePictureUri, base64Image, { encoding: FileSystem.EncodingType.Base64 });
+            // await AsyncStorage.setItem('profilePicture', JSON.stringify({ uri: profilePictureUri }));
+            // console.log('Stored Profile Picture URI:', profilePictureUri);
+            await AsyncStorage.setItem('profilePicture', JSON.stringify(defaultProfilePicture));
         } else {
             console.error("Profile Picture exists but error in processing the response.");
         }

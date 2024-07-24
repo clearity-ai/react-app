@@ -1,54 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ScrollView, Image, StyleSheet, Platform } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { Ionicons } from '@expo/vector-icons';
 
 // Themed components
-import { HelloWave } from '@/components/HelloWave';
 import { ThemedText } from '@/components/input/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-const defaultProfilePicture = require('@/assets/images/default-profile-picture.png');
+// Constants
+import { Colors } from '@/constants/Colors';
+
+// Hooks
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { useThemeColor } from '@/hooks/useThemeColor';
+
+// Utils
+import { getCurrentDate } from '@/utils/dates';
+
 
 export default function HomeScreen() {
+  const dateColorName = "textFaded"
+  const iconColor = useThemeColor({}, dateColorName);
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <>
         <ThemedView style={styles.mainContainer}>
+          <ThemedView style={styles.dateContainer}>
+            <Ionicons name={'sunny'} size={wp('6%')} color={iconColor} />
+            <ThemedText colorName={dateColorName}> {getCurrentDate()}</ThemedText>
+          </ThemedView>
           <ThemedView style={styles.titleContainer}>
-            <ThemedText type="title">Hey There!</ThemedText>
-            <HelloWave />
-          </ThemedView>
-          <ThemedView style={styles.stepContainer}>
-            <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-            <ThemedText>
-              Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-              Press{' '}
-              <ThemedText type="defaultSemiBold">
-                {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-              </ThemedText>{' '}
-              to open developer tools.
-            </ThemedText>
-          </ThemedView>
-          <ThemedView style={styles.stepContainer}>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-            <ThemedText>
-              Tap the Explore tab to learn more about what's included in this starter app.
-            </ThemedText>
-          </ThemedView>
-          <ThemedView style={styles.stepContainer}>
-            <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-            <ThemedText>
-              When you're ready, run{' '}
-              <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-              <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-              <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-              <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-            </ThemedText>
+            <ThemedText fontSize={wp('8%')} fontWeight="semibold">Home</ThemedText>
           </ThemedView>
         </ThemedView>
       </>
-    </ScrollView>
+    </ScrollView >
   );
 }
 
@@ -60,29 +46,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: wp('6%'),
   },
-  titleContainer: {
+  dateContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    marginRight: 'auto',
+    marginBottom: wp('3%'),
+    marginTop: - wp('5%'),
   },
-  profileContainer: {
-    alignItems: 'center',
-    marginTop: 16,
-  },
-  profileImage: {
-    height: 100,
-    width: 100,
-    borderRadius: 50,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  titleContainer: {
+    marginBottom: wp('5%'),
   },
 });
