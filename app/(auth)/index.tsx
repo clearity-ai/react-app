@@ -3,6 +3,7 @@ import { StyleSheet, Image, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { Ionicons } from '@expo/vector-icons';
 
 // Themed components
 import { ThemedView } from '@/components/ThemedView';
@@ -19,14 +20,12 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 
 
 export default function SignInScreen() {
-    const textFadedColor = useThemeColor({}, 'textFaded');
-    const tintGradient = useThemeColor({}, 'tintGradient');
-
     const navigation = useNavigation();
     const { signIn } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const iconColor = useThemeColor({}, 'textPlaceholder');
 
     const handleSignIn = async () => {
         try {
@@ -59,8 +58,8 @@ export default function SignInScreen() {
                     </ThemedView>
 
                     <ThemedView style={styles.textContainer}>
-                        <ThemedText fontSize={wp('8%')} fontWeight="semibold" colorName={tintGradient} style={{ paddingBottom: wp('1.5%') }} >Clearity.</ThemedText>
-                        <ThemedText fontSize={wp('4.5%')} fontWeight='semibold' style={{ textAlign: 'center', color: textFadedColor }} >Find the skincare routine that works best for you!</ThemedText>
+                        <ThemedText fontSize={wp('8%')} fontWeight="semibold" colorName='tintGradient' style={{ paddingBottom: wp('2%') }} >Clearity.</ThemedText>
+                        <ThemedText fontSize={wp('4.5%')} fontWeight='semibold' colorName='textFaded' style={{ textAlign: 'center' }} >Find the skincare routine that works best for you!</ThemedText>
                     </ThemedView>
 
                     <ThemedView style={styles.inputContainer}>
@@ -80,6 +79,12 @@ export default function SignInScreen() {
                             value={password}
                             onChangeText={setPassword}
                         />
+                        <Ionicons
+                            name={showPassword ? 'eye-off' : 'eye'}
+                            size={wp('6%')}
+                            style={{ position: 'absolute', right: wp('5%'), top: wp('9.5%'), color: iconColor }}
+                            onPress={() => setShowPassword(!showPassword)}
+                        />
                     </ThemedView>
 
                     <ThemedView style={styles.forgotPassword}>
@@ -90,7 +95,6 @@ export default function SignInScreen() {
                         <ThemedButton
                             title="Sign In"
                             onPress={handleSignIn}
-                            type="primary"
                         />
                     </ThemedView>
 
@@ -123,7 +127,8 @@ const styles = StyleSheet.create({
     logoContainer: {
         alignSelf: 'center',
         alignItems: 'center',
-        margin: wp('5%'),
+        marginTop: wp('5%'),
+        marginBottom: wp('1%'),
         position: 'relative',
     },
     logo: {

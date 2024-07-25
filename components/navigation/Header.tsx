@@ -44,7 +44,7 @@ export const ThemedHeader = () => {
                 />
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuButton} onPress={() => setModalVisible(true)}>
-                <Ionicons name={iconName} size={wp('9%')} color={iconColor} />
+                <Ionicons name={iconName} size={wp('12%')} color={iconColor} />
             </TouchableOpacity>
             <MenuModal modalVisible={modalVisible} setModalVisible={setModalVisible} iconColor={iconColor} />
         </View>
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
         paddingBottom: wp('3%'),
     },
     profileContainer: {
-        width: wp('12%'),
-        height: wp('12%'),
+        width: wp('15%'),
+        height: wp('15%'),
         borderRadius: wp('6%'),
         overflow: 'hidden',
     },

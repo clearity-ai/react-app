@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 // Themed components
 import { ThemedText } from '@/components/input/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { ThemedCheckin } from '@/components/input/ThemedCheckin';
 
 // Constants
 import { Colors } from '@/constants/Colors';
@@ -21,6 +22,11 @@ import { getCurrentDate } from '@/utils/dates';
 export default function HomeScreen() {
   const dateColorName = "textFaded"
   const iconColor = useThemeColor({}, dateColorName);
+
+  const onCheckinPress = () => {
+    console.log("Checkin pressed");
+    // Navigate to the checkin screens
+  }
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <>
@@ -30,8 +36,9 @@ export default function HomeScreen() {
             <ThemedText colorName={dateColorName}> {getCurrentDate()}</ThemedText>
           </ThemedView>
           <ThemedView style={styles.titleContainer}>
-            <ThemedText fontSize={wp('8%')} fontWeight="semibold">Home</ThemedText>
+            <ThemedText fontSize={wp('8%')} fontWeight="bold">Home</ThemedText>
           </ThemedView>
+          <ThemedCheckin onPress={onCheckinPress} />
         </ThemedView>
       </>
     </ScrollView >

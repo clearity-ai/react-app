@@ -1,63 +1,52 @@
 import { Pressable, type PressableProps, Text, StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-
 import { useThemeColor } from '@/hooks/useThemeColor';
+
+import { ThemedText } from '@/components/input/ThemedText';
 
 export type ThemedButtonProps = PressableProps & {
     title: string;
-    lightBackgroundColor?: string;
-    darkBackgroundColor?: string;
-    lightTextColor?: string;
-    darkTextColor?: string;
-    type?: 'primary' | 'secondary';
+    backgroundColorName?: string;
+    textColorName?: string;
+    fontSize?: number;
+    fontWeight?: 'normal' | 'bold' | 'semibold';
+    customStylesPressable?: object;
 };
 
 export function ThemedButton({
     title,
     onPress,
-    lightBackgroundColor,
-    darkBackgroundColor,
-    lightTextColor,
-    darkTextColor,
-    type = 'primary',
+    backgroundColorName = 'primaryButtonBackground',
+    textColorName = 'primaryButtonText',
+    fontSize = wp('5%'),
+    fontWeight = 'bold',
+    customStylesPressable = {},
     ...rest
 }: ThemedButtonProps) {
-    const backgroundColor = useThemeColor(
-        { light: lightBackgroundColor, dark: darkBackgroundColor },
-        type === 'primary' ? 'primaryButtonBackground' : 'secondaryButtonBackground',
-    );
-    const color = useThemeColor(
-        { light: lightTextColor, dark: darkTextColor },
-        type === 'primary' ? 'primaryButtonText' : 'secondaryButtonText',
-    );
+    const backgroundColor = useThemeColor({}, backgroundColorName);
 
     return (
         <Pressable
             style={[
                 styles.button,
                 { backgroundColor },
+                customStylesPressable,
             ]}
             onPress={onPress}
             {...rest}>
-            <Text style={[styles.text, { color }]}>{title}</Text>
+            <ThemedText colorName={textColorName} fontSize={fontSize} fontWeight={fontWeight}>{title}</ThemedText>
+
         </Pressable>
     );
-
-
 }
 
 const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
         justifyContent: 'center',
+        elevation: 3,
+        borderRadius: wp('3%'),
         paddingVertical: wp('3%'),
         paddingHorizontal: wp('5%'),
-        borderRadius: wp('4%'),
-        elevation: 3,
-    },
-    text: {
-        fontSize: wp('5%'),
-        fontWeight: 'bold',
-        letterSpacing: 0.3,
     },
 });

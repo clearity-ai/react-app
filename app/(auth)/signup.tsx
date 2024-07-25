@@ -3,6 +3,7 @@ import { StyleSheet, Image, Alert, View, Pressable } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { launchImageLibrary } from 'react-native-image-picker';
 import dayjs from 'dayjs';
@@ -27,6 +28,8 @@ export default function SignUpScreen() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const iconColor = useThemeColor({}, 'textPlaceholder');
     const [birthdate, setBirthdate] = useState(dayjs());
     const [sex, setSex] = useState('');
     const [profilePicture, setProfilePicture] = useState(null);
@@ -77,6 +80,10 @@ export default function SignUpScreen() {
         <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContainer}>
             <>
                 <ThemedView style={styles.mainContainer}>
+                    <ThemedView style={styles.titleContainer}>
+                        <ThemedText fontSize={wp('8%')} fontWeight="normal" colorName='tint'>Let's gooo!</ThemedText>
+                    </ThemedView>
+
                     <View style={styles.profileImageContainer}>
                         <Pressable
                             onPress={changeProfilePicture}
@@ -115,6 +122,12 @@ export default function SignUpScreen() {
                             value={password}
                             onChangeText={setPassword}
                         />
+                        <Ionicons
+                            name={showPassword ? 'eye-off' : 'eye'}
+                            size={wp('6%')}
+                            style={{ position: 'absolute', right: wp('5%'), top: wp('9.5%'), color: iconColor }}
+                            onPress={() => setShowPassword(!showPassword)}
+                        />
                     </ThemedView>
 
                     <ThemedView style={styles.inputContainer}>
@@ -139,7 +152,6 @@ export default function SignUpScreen() {
                         <ThemedButton
                             title="Sign Up"
                             onPress={handleSignUp}
-                            type="primary"
                         />
                     </ThemedView>
 
@@ -161,6 +173,10 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: wp('7%'),
         paddingTop: wp('8%'),
+    },
+    titleContainer: {
+        alignSelf: 'center',
+        paddingTop: wp('5%'),
     },
     profileImageContainer: {
         alignSelf: 'center',

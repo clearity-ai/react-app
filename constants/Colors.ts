@@ -19,11 +19,13 @@ const neutral0 = '#FFFFFF'; // white
 const primary50 = '#EBE4FB';
 const primary100 = '#CABDF5';
 const primary200 = '#A591EF'; // main color
-const primarygradient = '#5D5491'
 const primary300 = '#7E65E4';
 const primary400 = '#5F46D7';
 const primary500 = '#3927CA';
 const primary600 = '#2823C5';
+
+const primaryGradient = '#5D5491'
+const primaryDarkComplement = '#8357C6';
 
 const secondary50 = '#F3F8E9';
 const secondary100 = '#E1ECC8';
@@ -45,9 +47,9 @@ export const Colors = {
     textPlaceholder: neutral400,
     textPlaceholderBackground: neutral100,
     tint: primary200,
-    tintGradient: primarygradient,
+    tintGradient: primaryGradient,
     tintSecondary: secondary300,
-    tintPrimaryDarker: primary400,
+    tintPrimaryDarker: primaryDarkComplement,
     tintSecondaryDarker: secondary700,
     tintNeutral: neutral800,
     tintNeutralLighter: neutral400,

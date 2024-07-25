@@ -35,33 +35,3 @@ export function ThemedText({
     />
   );
 }
-
-const styles = StyleSheet.create({
-  default: {
-    fontSize: wp('4%'),  // Responsive font size
-  },
-  large: {
-    fontSize: wp('5%'),
-  },
-  small: {
-    fontSize: wp('3.5%'),
-  },
-  title: {
-    fontSize: wp('8%'),
-    fontWeight: 'semibold',
-  },
-  subtitle: {
-    fontSize: wp('5%'),
-    fontWeight: 'semibold',
-  },
-  link: {
-    fontSize: wp('4%'),
-  },
-  link_small: {
-    fontSize: wp('3.5%'),
-  },
-  label: {
-    fontSize: wp('4.5%'),
-    fontWeight: 'semibold',
-  },
-});

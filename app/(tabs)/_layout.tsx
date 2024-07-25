@@ -26,9 +26,16 @@ export default function TabLayout() {
           headerShown: false,
           tabBarStyle: {
             backgroundColor: Colors[colorScheme ?? 'light'].background,
-            borderTopColor: Colors[colorScheme ?? 'light'].tabIconDefault,
-            borderTopWidth: wp('0.3%'),
+            borderTopRightRadius: wp('5%'),
+            borderTopLeftRadius: wp('5%'),
             height: wp('20%'),
+            // Shadow for iOS
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.15,
+            shadowRadius: wp('3%'),
+            // Elevation for Android
+            elevation: 10,
           },
           tabBarIconStyle: {
             width: wp('6%'),

@@ -5,6 +5,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
+// Constants
+import { Colors } from '@/constants/Colors';
+
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { AuthProvider } from '@/contexts/AuthContext';
 
@@ -16,7 +19,11 @@ function RootContent() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack
+        screenOptions={{
+          contentStyle: { backgroundColor: Colors[colorScheme ?? 'light'].background },
+        }}
+      >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
