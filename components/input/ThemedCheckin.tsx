@@ -21,7 +21,7 @@ export function ThemedCheckin({
     buttonTextColorName,
     ...rest
 }: ThemedCheckinProps) {
-    const borderColor = useThemeColor({}, borderColorName ? borderColorName : 'tintPrimaryDarker');
+    const borderColor = useThemeColor({}, borderColorName ? borderColorName : 'tint');
 
 
     return (
@@ -29,7 +29,7 @@ export function ThemedCheckin({
             onPress={onPress}
         >
             <View style={[styles.captureContainer, { borderColor }]}>
-                <Ionicons name="aperture" size={wp('25%')} style={{ alignSelf: 'center', color: borderColor }} />
+                <Ionicons name="aperture" size={wp('30%')} style={{ alignSelf: 'center', color: borderColor }} />
                 <View style={styles.capture}>
                     <ThemedButton
                         title="Check In"
@@ -47,14 +47,14 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         height: wp('70%'),
-        borderWidth: wp('1.5%'),
+        borderWidth: wp('1%'),
         borderRadius: wp('3%'),
-        marginHorizontal: wp('7%'),
+        marginHorizontal: wp('10%'),
     },
     capture: {
         flex: 0,
         paddingHorizontal: wp('10%'),
-        paddingTop: wp('13%'),
+        paddingTop: wp('7%'),
         paddingBottom: wp('3%'),
         justifyContent: 'center',
     },
