@@ -29,20 +29,13 @@ export function CheckinCard({
         return null;
     }
 
-    const [photoSource, setPhotoSource] = useState({ uri: "https://picsum.photos/200/400" });
-    const [userRating, setUserRating] = useState(null);
-
-    useEffect(() => {
-        // Set the photo source and user rating
-        const newPhotoSource = checkinData.checkinAreas[areaId].pictureURI
-            ? { uri: checkinData.checkinAreas[areaId].pictureURI }
-            : typeof checkinData.checkinAreas[areaId].placeholderPictureURI === 'string'
-                ? { uri: checkinData.checkinAreas[areaId].placeholderPictureURI }
-                : checkinData.checkinAreas[areaId].placeholderPictureURI;
-        const newUserRating = checkinData.checkinAreas[areaId].userRating ? checkinData.checkinAreas.userRating : null;
-        setPhotoSource(newPhotoSource);
-        setUserRating(newUserRating);
-    }, [checkinData]);
+    const photoSource = checkinData.checkinAreas[areaId].pictureURI
+        ? { uri: checkinData.checkinAreas[areaId].pictureURI }
+        : typeof checkinData.checkinAreas[areaId].placeholderPictureURI === 'string'
+            ? { uri: checkinData.checkinAreas[areaId].placeholderPictureURI }
+            : checkinData.checkinAreas[areaId].placeholderPictureURI;
+    console.log("CheckinCard photoSource", photoSource);
+    const userRating = checkinData.checkinAreas[areaId].userRating ? checkinData.checkinAreas.userRating : null;
 
     const onCheckinAreaPress = () => {
         // Navigate to the camera screen

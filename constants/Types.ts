@@ -37,10 +37,16 @@ export type Routines = {
 
 
 // Define checkinArea type
+interface ImageFile {
+    name: string;
+    type: string;
+    uri: string;
+}
 export interface CheckinArea {
     areaId: string | null;
     areaName: string;
     placeholderPictureURI: string;
+    picture: ImageFile | null,
     pictureURI: string | null;
     userRating: number | null;
 };

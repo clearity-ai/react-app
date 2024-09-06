@@ -59,6 +59,7 @@ const initialCheckinAreas = {
     0: {
         areaId: "0",
         areaName: "Face Frontal",
+        picture: null,
         pictureURI: null,
         placeholderPictureURI: require('@/assets/images/default-face-frontal.png'),
         userRating: null,
@@ -66,6 +67,7 @@ const initialCheckinAreas = {
     1: {
         areaId: "1",
         areaName: "Face Left",
+        picture: null,
         pictureURI: null,
         placeholderPictureURI: require('@/assets/images/default-face-left.png'),
         userRating: null,
@@ -73,6 +75,7 @@ const initialCheckinAreas = {
     2: {
         areaId: "2",
         areaName: "Face Right",
+        picture: null,
         pictureURI: null,
         placeholderPictureURI: require('@/assets/images/default-face-right.png'),
         userRating: null,
@@ -80,6 +83,7 @@ const initialCheckinAreas = {
     3: {
         areaId: "3",
         areaName: "Neck & Chest",
+        picture: null,
         pictureURI: null,
         placeholderPictureURI: require('@/assets/images/default-neck-chest.png'),
         userRating: null,

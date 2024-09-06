@@ -31,9 +31,11 @@ export const CheckinProvider = ({ children }) => {
         }
     }, [user]);
 
-    const updatePhotoURI = (areaId, photoURI) => {
+    const updatePhoto = (areaId, photo) => {
         const updatedCheckinData = { ...checkinData };
-        updatedCheckinData.checkinAreas[areaId].photoURI = photoURI;
+        console.log('updating photo', photo);
+        updatedCheckinData.checkinAreas[areaId].picture = photo;
+        updatedCheckinData.checkinAreas[areaId].pictureURI = photo.uri;
         setCheckinData(updatedCheckinData);
     };
 
@@ -68,7 +70,7 @@ export const CheckinProvider = ({ children }) => {
     };
 
     return (
-        <CheckinContext.Provider value={{ checkinData, updatePhotoURI, updateUserRating, updateCheckinDate, pushCheckinData }}>
+        <CheckinContext.Provider value={{ checkinData, updatePhoto, updateUserRating, updateCheckinDate, pushCheckinData }}>
             {children}
         </CheckinContext.Provider>
     );

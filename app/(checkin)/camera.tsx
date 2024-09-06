@@ -17,7 +17,7 @@ export default function CameraScreen() {
     const router = useRouter();
     const { areaId } = useLocalSearchParams();
     const strAreaId = areaId ? String(areaId) : "";
-    const { checkinData, updateCheckinAreaPicture } = useCheckin();
+    const { checkinData, updatePhoto } = useCheckin();
     const [photo, setPhoto] = useState(null);
     const headerTitle = checkinData.checkinAreas[strAreaId].areaName;
 
@@ -47,6 +47,15 @@ export default function CameraScreen() {
             }
         );
     };
+
+    const onSaveCheckinArea = () => {
+        if (!photo) {
+            Alert.alert('Error', 'Please take a selfie to save.');
+            return;
+        }
+        updatePhoto(strAreaId, photo);
+        router.navigate('(checkin)');
+    }
 
     return (
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>

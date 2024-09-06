@@ -23,7 +23,7 @@ export default function CheckinScreen() {
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
             <>
                 <ThemedView style={styles.mainContainer}>
-                    <SimpleHeader title="Select Area" onClose={() => router.navigate('(tabs)')} onClick={pushCheckinData} clickIconName='checkmark' />
+                    <SimpleHeader title="Select Areas" onClose={() => router.navigate('(tabs)')} onClick={pushCheckinData} clickIconName='checkmark' />
                     <ThemedView style={styles.checkinAreaListContainer}>
                         {Object.values(checkinData.checkinAreas as Record<string, CheckinArea>).map((item: CheckinArea, index: number) => {
                             return <CheckinCard
