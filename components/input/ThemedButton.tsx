@@ -16,8 +16,8 @@ export type ThemedButtonProps = PressableProps & {
 export function ThemedButton({
     title,
     onPress,
-    backgroundColorName = 'primaryButtonBackground',
-    textColorName = 'primaryButtonText',
+    backgroundColorName = 'tint',
+    textColorName = 'background',
     fontSize = wp('5%'),
     fontWeight = 'bold',
     customStylesPressable = {},
@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         elevation: 3,
         borderRadius: wp('3%'),
-        paddingVertical: wp('3%'),
-        paddingHorizontal: wp('5%'),
+        paddingVertical: wp('2%'),
+        paddingHorizontal: wp('3%'),
+        height: wp('10%'),
     },
 });

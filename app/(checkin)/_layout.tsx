@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 
-export default function AuthLayout() {
+export default function CheckinLayout() {
     return (
         <Stack
             screenOptions={{
@@ -11,7 +11,7 @@ export default function AuthLayout() {
                 name="index"
             />
             <Stack.Screen
-                name="signup"
+                name="camera"
             />
         </Stack>
     );

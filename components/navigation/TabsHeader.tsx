@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Image, TouchableOpacity, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { Ionicons } from '@expo/vector-icons';
 
 // Components
+import { ThemedView } from '@/components/ThemedView';
 import { MenuModal } from '@/components/navigation/MenuModal';
 
 // Hooks
@@ -12,10 +13,9 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 
 const defaultProfilePicture = require('@/assets/images/default-profile-picture.png');
 
-export const ThemedHeader = () => {
-    const iconColor = useThemeColor({}, 'tabIconDefault');
+export const TabsHeader = () => {
+    const iconColor = useThemeColor({}, 'tabIconDefault'); //tabIconDefault
     const iconName = 'menu-outline';
-    const backgroundColor = useThemeColor({}, 'background');
     const [profilePicture, setProfilePicture] = useState({ uri: defaultProfilePicture });
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -23,7 +23,6 @@ export const ThemedHeader = () => {
         const fetchProfilePicture = async () => {
             try {
                 const profilePictureUri = await AsyncStorage.getItem('profilePicture');
-                console.log('profilePictureUri', profilePictureUri);
                 if (profilePictureUri) {
                     setProfilePicture(JSON.parse(profilePictureUri));
                 }
@@ -36,7 +35,7 @@ export const ThemedHeader = () => {
     }, []);
 
     return (
-        <View style={[styles.headerContainer, { backgroundColor }]}>
+        <ThemedView style={styles.headerContainer}>
             <TouchableOpacity style={styles.profileContainer}>
                 <Image
                     source={profilePicture}
@@ -44,10 +43,10 @@ export const ThemedHeader = () => {
                 />
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuButton} onPress={() => setModalVisible(true)}>
-                <Ionicons name={iconName} size={wp('12%')} color={iconColor} />
+                <Ionicons name={iconName} size={wp('10%')} color={iconColor} />
             </TouchableOpacity>
-            <MenuModal modalVisible={modalVisible} setModalVisible={setModalVisible} iconColor={iconColor} />
-        </View>
+            <MenuModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+        </ThemedView>
     );
 };
 
@@ -57,13 +56,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: wp('5%'),
-        paddingTop: wp('10%'),
+        paddingTop: wp('8%'),
         paddingBottom: wp('3%'),
     },
     profileContainer: {
-        width: wp('15%'),
-        height: wp('15%'),
-        borderRadius: wp('6%'),
+        width: wp('12%'),
+        height: wp('12%'),
+        borderRadius: wp('12%'),
         overflow: 'hidden',
     },
     profilePicture: {

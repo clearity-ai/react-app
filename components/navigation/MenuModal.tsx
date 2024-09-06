@@ -7,8 +7,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { useAuth } from '@/hooks/useAuth';
 
-export const MenuModal = ({ modalVisible, setModalVisible, iconColor }) => {
+export const MenuModal = ({ modalVisible, setModalVisible }) => {
     const iconName = 'close-outline';
+    const iconColor = useThemeColor({}, 'tint');
     const borderBottomColor = useThemeColor({}, 'tintNeutralLighter');
     const backgroundColor = useThemeColor({}, 'background');
 

@@ -9,6 +9,7 @@ import { ThemedText } from '@/components/input/ThemedText';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export type InfoCardProps = {
+    index?: number;
     backgroundColorName?: string;
     foregroundColorName?: string;
     iconName: string;
@@ -20,6 +21,7 @@ export type InfoCardProps = {
 
 
 export function InfoCard({
+    index,
     backgroundColorName,
     foregroundColorName,
     iconName,

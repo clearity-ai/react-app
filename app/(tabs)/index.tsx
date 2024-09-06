@@ -1,80 +1,36 @@
 import React from 'react';
-import { ScrollView, Image, StyleSheet, Platform } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 // Components
-import { ThemedText } from '@/components/input/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { ThemedCheckin } from '@/components/input/ThemedCheckin';
+import { ScreenTitle } from '@/components/navigation/ScreenTitle';
+import { ThemedCheckin } from '@/components/checkin/ThemedCheckin';
 import { InfoCard } from '@/components/InfoCard';
 import { TipCard } from '@/components/TipCard';
 
 // Constants
-import { Colors } from '@/constants/Colors';
-
-// Hooks
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { useThemeColor } from '@/hooks/useThemeColor';
-
-// Utils
-import { getCurrentDate } from '@/utils/dates';
-
+import { infoCardData, tipCardData } from '@/constants/Values';
 
 export default function HomeScreen() {
-  const dateColorName = "textFaded"
-  const iconColor = useThemeColor({}, dateColorName);
+  const router = useRouter();
 
   const onCheckinPress = () => {
-    console.log("Checkin pressed");
     // Navigate to the checkin screens
+    router.navigate('(checkin)');
   }
 
-  const lastRoutineName = "Simple Routine"
-  const streakDays = 12
-  const lastCheckinTime = "30"
-
-  const infoCardData = [
-    {
-      backgroundColorName: "tint",
-      foregroundColorName: "primaryButtonText",
-      iconName: "shimmer",
-      infoTitleText: "Last Routine",
-      infoMainText: lastRoutineName,
-      infoUnitText: "",
-      infoDetailText: "used in check-in"
-    },
-    {
-      backgroundColorName: "tintPrimaryLighter",
-      foregroundColorName: "tintPrimaryDarker",
-      iconName: "progress-check",
-      infoTitleText: "Progress Tracking",
-      infoMainText: streakDays.toString(),
-      infoUnitText: "days in a row",
-      infoDetailText: "updated " + lastCheckinTime + " mins ago"
-    },
-  ]
-
-  const tipCardData = {
-    imageURI: "https://picsum.photos/200/400",
-    tipTitleText: "Skincare Tip #312",
-    tipMainText: "Less is more when it comes to skin care. Using too many products can irritate your skin. Instead, focus on the basics, such as a gentle cleanser, sunscreen, and moisturizer.",
-  }
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <>
         <ThemedView style={styles.mainContainer}>
-          <ThemedView style={styles.dateContainer}>
-            <Ionicons name={'sunny'} size={wp('6%')} color={iconColor} />
-            <ThemedText colorName={dateColorName}> {getCurrentDate()}</ThemedText>
-          </ThemedView>
-          <ThemedView style={styles.titleContainer}>
-            <ThemedText fontSize={wp('8%')} fontWeight="bold">Home</ThemedText>
-          </ThemedView>
+          <ScreenTitle title="Home" />
           <ThemedCheckin onPress={onCheckinPress} />
           <ThemedView style={styles.infoContainer}>
             {infoCardData.map((item, index) => {
               return <InfoCard
+                key={index}
                 backgroundColorName={item.backgroundColorName}
                 foregroundColorName={item.foregroundColorName}
                 iconName={item.iconName}
@@ -106,6 +62,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: wp('6%'),
+    paddingTop: 0,
   },
   dateContainer: {
     flexDirection: 'row',
@@ -121,6 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    rowGap: wp('4%'),
     marginTop: wp('4%'),
     flexWrap: "wrap",
   },
@@ -129,7 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: wp('3%'),
     shadowColor: '#000',
     shadowOffset: { width: wp('0.5%'), height: wp('0.5%') },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
     shadowRadius: wp('1%'),
     elevation: 5, // For Android shadow
     zIndex: 1, // card is above other content

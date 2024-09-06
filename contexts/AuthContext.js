@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
             try {
                 const token = await AsyncStorage.getItem('token');
                 if (token) {
-                    // Optionally validate token and fetch user data
+                    // Validate token and fetch user data
                     const getUserResponse = await apiGetUser();
                     const user_data = getUserResponse.data;
                     setUser({
@@ -37,7 +37,9 @@ export const AuthProvider = ({ children }) => {
                     console.log("Auth Provider is mounted but token is not found.")
                 }
             } catch (error) {
-                console.error('Error during loading user:', error);
+                console.error('Error during loading user, might just be token expiration:', error);
+                signOut();
+
             } finally {
                 setLoading(false);
             }
@@ -60,10 +62,8 @@ export const AuthProvider = ({ children }) => {
         }
         await apiSetToken(data.access_token);
 
-
         const getUserResponse = await apiGetUser();
         const user_data = getUserResponse.data;
-        console.log('User data:', user_data);
         if (!user_data.id) {
             setLoading(false);
             throw new Error('Error during get user request');

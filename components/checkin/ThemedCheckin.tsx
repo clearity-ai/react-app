@@ -1,5 +1,4 @@
-
-import { StyleSheet, Pressable, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -23,22 +22,20 @@ export function ThemedCheckin({
 }: ThemedCheckinProps) {
     const borderColor = useThemeColor({}, borderColorName ? borderColorName : 'tint');
 
-
     return (
-        <Pressable
-            onPress={onPress}
-        >
+        <TouchableOpacity onPress={onPress}>
             <View style={[styles.captureContainer, { borderColor }]}>
                 <Ionicons name="aperture" size={wp('30%')} style={{ alignSelf: 'center', color: borderColor }} />
                 <View style={styles.capture}>
                     <ThemedButton
                         title="Check In"
                         fontWeight='semibold'
+                        onPress={onPress}
                         {...rest}
                     />
                 </View>
             </View>
-        </Pressable >
+        </TouchableOpacity>
     );
 }
 

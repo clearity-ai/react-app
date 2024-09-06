@@ -57,7 +57,7 @@ export const getUser = async () => {
         const response = await api.get('/user/get/');
         return response.data;
     } catch (error) {
-        console.error('Error during get user request:', error);
+        console.error('Error during get user request, might just be token expiration:', error);
         throw error;
     }
 }
@@ -65,7 +65,6 @@ export const getUser = async () => {
 export const setProfilePicture = async () => {
     try {
         const response = await api.get(`/user/get-profile-picture/`, { responseType: 'arraybuffer' });
-        console.log("Info:", response.headers['content-type']);
         if (response.status === 200) {
 
             const contentType = response.headers['content-type'];
@@ -78,11 +77,13 @@ export const setProfilePicture = async () => {
 
             const base64Image = response.request._response;
             const profilePictureUri = `${FileSystem.documentDirectory}profile_picture.${extension}`;
-            // TODO: Comment out to work in web browser, uncomment to work in mobile
-            // await FileSystem.writeAsStringAsync(profilePictureUri, base64Image, { encoding: FileSystem.EncodingType.Base64 });
-            // await AsyncStorage.setItem('profilePicture', JSON.stringify({ uri: profilePictureUri }));
-            // console.log('Stored Profile Picture URI:', profilePictureUri);
-            await AsyncStorage.setItem('profilePicture', JSON.stringify(defaultProfilePicture));
+
+            // BROWSER TESTING : Swap comments below to test on browser
+            await FileSystem.writeAsStringAsync(profilePictureUri, base64Image, { encoding: FileSystem.EncodingType.Base64 });
+            await AsyncStorage.setItem('profilePicture', JSON.stringify({ uri: profilePictureUri }));
+            // await AsyncStorage.setItem('profilePicture', JSON.stringify(defaultProfilePicture));
+
+            console.log('Stored Profile Picture URI:', profilePictureUri);
         } else {
             console.error("Profile Picture exists but error in processing the response.");
         }

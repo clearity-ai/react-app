@@ -27,17 +27,20 @@ const primary600 = '#2823C5';
 const primaryGradient = '#5D5491'
 const primaryDarkComplement = '#8357C6';
 
-const secondary50 = '#F3F8E9';
-const secondary100 = '#E1ECC8';
-const secondary200 = '#CEDFA5';
-const secondary300 = '#BAD381'; // main color
-const secondary400 = '#ABCA65';
-const secondary500 = '#9CC149';
-const secondary600 = '#8DB141';
-const secondary700 = '#789D37';
-const secondary800 = '#64892F';
-const secondary900 = '#42681E';
+const secondary50 = '#e4fbf5';
+const secondary100 = '#bdf4e5';
+const secondary200 = '#91EFD4'; // main color
+const secondary300 = '#68e6c3';
+const secondary400 = '#51dcb4';
+const secondary500 = '#4ad2a8';
+const secondary600 = '#44c399';
+const secondary700 = '#44c399';
+const secondary800 = '#379f7a';
+const secondary900 = '#2f805d';
 
+const error = '#E9648A';
+const success = '#81E052';
+const warning = '#EDC25E';
 
 export const Colors = {
   light: {
@@ -50,16 +53,14 @@ export const Colors = {
     tintPrimaryLighter: primary50,
     tintPrimaryDarker: primary300,
     tintGradient: primaryGradient,
-    tintSecondary: secondary300,
+    tintSecondary: secondary200,
     tintSecondaryDarker: secondary700,
     tintNeutral: neutral800,
     tintNeutralLighter: neutral400,
+    error: error,
     tabIconDefault: neutral400,
     tabIconSelected: primary200,
-    primaryButtonBackground: primary200,
-    primaryButtonText: neutral25,
-    secondaryButtonBackground: secondary300,
-    secondaryButtonText: neutral25,
+    tableColor2: neutral50,
   },
   dark: {
   },

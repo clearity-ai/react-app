@@ -26,8 +26,8 @@ export function TipCard({
         <View style={[styles.tipCardContainer, { backgroundColor }]} {...rest}>
             <Image source={{ uri: imageURI }} style={styles.imageStyle} />
             <View style={styles.textContainer}>
-                <ThemedText colorName='text' fontSize={wp('4.5%')} fontWeight='bold' style={{ paddingBottom: wp('1.5%') }}>{tipTitleText}</ThemedText>
-                <ThemedText colorName='textFaded' fontSize={wp('4%')}>{tipMainText}</ThemedText>
+                <ThemedText colorName='textFaded' fontSize={wp('4.5%')} fontWeight='bold' style={{ paddingBottom: wp('1.5%') }}>{tipTitleText}</ThemedText>
+                <ThemedText colorName='textPlaceholder' fontSize={wp('4%')}>{tipMainText}</ThemedText>
             </View>
         </View>
     );

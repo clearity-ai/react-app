@@ -4,7 +4,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 // Components
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { ThemedHeader } from '@/components/navigation/Header';
+import { TabsHeader } from '@/components/navigation/TabsHeader';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
 // Constants
@@ -18,49 +18,47 @@ export default function TabLayout() {
 
   return (
     <ProtectedRoute>
-      <ThemedHeader />
+      <TabsHeader />
       <Tabs
         screenOptions={{
+          headerShown: false,
           tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
           tabBarInactiveTintColor: Colors[colorScheme ?? 'light'].tabIconDefault,
-          headerShown: false,
           tabBarStyle: {
             backgroundColor: Colors[colorScheme ?? 'light'].background,
             borderTopRightRadius: wp('5%'),
             borderTopLeftRadius: wp('5%'),
             height: wp('20%'),
+            padding: wp('3%'),
             // Shadow for iOS
             shadowColor: '#000',
-            shadowOffset: { width: 0, height: 4 },
+            shadowOffset: { width: 0, height: wp('1%') },
             shadowOpacity: 0.15,
-            shadowRadius: wp('3%'),
+            shadowRadius: wp('5%'),
             // Elevation for Android
             elevation: 10,
+
           },
-          tabBarIconStyle: {
-            width: wp('6%'),
-            height: wp('6%'),
+          tabBarItemStyle: {
           },
           tabBarLabelStyle: {
-            fontSize: wp('3.5%'),
-            marginBottom: wp('3%'),
+            fontSize: wp('3.2%'),
+            paddingTop: wp('4%'),
           },
         }}>
         <Tabs.Screen
           name="index"
           options={{
-            title: 'Home',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
             ),
           }}
         />
         <Tabs.Screen
-          name="explore"
+          name="routines"
           options={{
-            title: 'Explore',
             tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+              <TabBarIcon name={focused ? 'infinite' : 'infinite-outline'} color={color} />
             ),
           }}
         />

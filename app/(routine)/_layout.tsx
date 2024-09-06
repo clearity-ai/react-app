@@ -1,17 +1,17 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 
-export default function AuthLayout() {
+export default function RoutineLayout() {
     return (
         <Stack
             screenOptions={{
                 headerShown: false,
             }}>
             <Stack.Screen
-                name="index"
+                name="editable_routine"
             />
             <Stack.Screen
-                name="signup"
+                name="viewable_routine"
             />
         </Stack>
     );

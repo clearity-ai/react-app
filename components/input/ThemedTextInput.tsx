@@ -4,26 +4,36 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export type ThemedTextInputProps = TextInputProps & {
-  lightColor?: string;
-  darkColor?: string;
+  textColorName?: string;
+  placeholderTextColorName?: string;
+  fontSize?: number;
+  backgroundColorName?: string;
+  borderWidth?: number;
+  borderRadius?: number;
+  borderColorName?: string;
 };
 
 export function ThemedTextInput({
   style,
-  lightColor,
-  darkColor,
+  textColorName = 'text',
+  placeholderTextColorName = 'textPlaceholder',
+  fontSize = wp('4%'),
+  backgroundColorName = 'textPlaceholderBackground',
+  borderWidth = 0,
+  borderRadius = wp('2%'),
+  borderColorName = 'textPlaceholder',
   ...rest
 }: ThemedTextInputProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
-  const placeholderTextColor = useThemeColor({ light: lightColor, dark: darkColor }, 'textPlaceholder');
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'textPlaceholderBackground');
-  const borderWidth = 0;
-  const borderRadius = wp('2%');
+
+  const color = useThemeColor({}, textColorName);
+  const placeholderTextColor = useThemeColor({}, placeholderTextColorName);
+  const backgroundColor = useThemeColor({}, backgroundColorName);
+  const borderColor = useThemeColor({}, borderColorName);
 
   return (
     <TextInput
       style={[
-        { color, backgroundColor, borderWidth, borderRadius, fontSize: wp('4%'), paddingVertical: wp('2%'), justifyContent: 'center', paddingLeft: wp('2%'), },
+        { color, backgroundColor, borderWidth, borderRadius, borderColor, fontSize, paddingVertical: wp('2%'), justifyContent: 'center', paddingLeft: wp('2%'), },
         style,
       ]}
       placeholderTextColor={placeholderTextColor}
