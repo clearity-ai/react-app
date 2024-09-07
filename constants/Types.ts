@@ -27,12 +27,14 @@ export type Routine = {
     routineName: string;
     daysLogged: number;
     routineSteps: RoutineSteps;
+    deleted: boolean;
+    requiresDBupdate: boolean;
 };
 
 // Define Routines type
 export type Routines = {
     userId: string | null;
-    routines: Routine[];
+    routines: { [routineId: string]: Routine };
 };
 
 
@@ -54,7 +56,6 @@ export interface CheckinArea {
 // Define type for a checkin
 export type Checkin = {
     checkinAreas: { [areaId: string]: CheckinArea };
-    checkinId: string | null;
     userId: string | null;
     checkinDate: Date | null;
     routineId: string | null;

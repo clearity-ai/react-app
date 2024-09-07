@@ -22,12 +22,10 @@ import { ThemedText } from '@/components/input/ThemedText';
 export default function ViewableRoutineScreen() {
     const router = useRouter();
     const { routineId } = useLocalSearchParams(); // Access route params using expo-router
-    const strRoutineId = routineId ? String(routineId) : null; // assert routineId is string
-
+    const strRoutineId = routineId ? String(routineId) : ""; // assert routineId is string
     const { routinesData } = useRoutines();
-    const routineIndex: number = routinesData.routines.findIndex((routine: Routine) => routine.routineId === strRoutineId);
 
-    if (routineIndex === -1) {
+    if (!routinesData.routines[strRoutineId]) {
         router.replace('(tabs)/routines');
     }
 
@@ -42,13 +40,13 @@ export default function ViewableRoutineScreen() {
         <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContainer}>
             <>
                 <ThemedView style={styles.mainContainer}>
-                    <SimpleHeader title={routinesData.routines[routineIndex].routineName} onClose={() => router.replace('(tabs)/routines')} onClick={onEditRoutinePress} clickIconName='pencil' />
-                    <ThemedText colorName='text' fontSize={wp('5%')} fontWeight='semibold'>Total Days Logged: {routinesData.routines[routineIndex].daysLogged}</ThemedText>
+                    <SimpleHeader title={routinesData.routines[strRoutineId].routineName} onClose={() => router.replace('(tabs)/routines')} onClick={onEditRoutinePress} clickIconName='pencil' />
+                    <ThemedText colorName='text' fontSize={wp('5%')} fontWeight='semibold'>Total Days Logged: {routinesData.routines[strRoutineId].routineName.daysLogged}</ThemedText>
                     {timings.map(timing => (
                         <ThemedView style={styles.cardContainer} key={timing}>
                             <RoutineTimingDetailCard
                                 timing={timing}
-                                routineIndex={routineIndex}
+                                routineId={strRoutineId}
                             />
                         </ThemedView>
                     ))}

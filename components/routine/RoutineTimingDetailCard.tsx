@@ -15,7 +15,7 @@ import { useRoutines } from '@/hooks/useRoutines';
 import { Timing, RoutineStep } from '@/constants/Types';
 export type RoutineTimingDetailCardProps = {
     timing: Timing;
-    routineIndex: number;
+    routineId: string;
     editMode?: boolean;
 };
 
@@ -39,8 +39,8 @@ function RoutineTimingDetailCardRow({ orderBackgroundColor, orderTextColorName, 
     );
 }
 
-function RoutineTimingDetailCardEditableRow({ orderBackgroundColor, orderTextColorName, timing, routineIndex, stepIndex, order, itemType, itemBrand
-}: { orderBackgroundColor: string, orderTextColorName: string, timing: Timing, routineIndex: number, stepIndex: number, order: number, itemType: string, itemBrand: string | null }) {
+function RoutineTimingDetailCardEditableRow({ orderBackgroundColor, orderTextColorName, timing, routineId, stepIndex, order, itemType, itemBrand
+}: { orderBackgroundColor: string, orderTextColorName: string, timing: Timing, routineId: string, stepIndex: number, order: number, itemType: string, itemBrand: string | null }) {
 
     const rowColors = ['background', 'tableColor2'];
     const backgroundColorName = rowColors[order % rowColors.length];
@@ -49,11 +49,11 @@ function RoutineTimingDetailCardEditableRow({ orderBackgroundColor, orderTextCol
     const { updateRoutineStep } = useRoutines();
 
     const setItemType = (itemType: string) => {
-        updateRoutineStep(routineIndex, timing, stepIndex, itemType);
+        updateRoutineStep(routineId, timing, stepIndex, itemType);
     };
 
     const setItemBrand = (itemBrand: string) => {
-        updateRoutineStep(routineIndex, timing, stepIndex, itemBrand);
+        updateRoutineStep(routineId, timing, stepIndex, itemBrand);
     };
 
     return (
@@ -73,10 +73,11 @@ function RoutineTimingDetailCardEditableRow({ orderBackgroundColor, orderTextCol
 
 export function RoutineTimingDetailCard({
     timing,
-    routineIndex,
+    routineId,
     editMode,
     ...rest
 }: RoutineTimingDetailCardProps) {
+    const { routinesData } = useRoutines();
     const timingProperties = {
         Morning: { iconName: 'sunrise' },
         Noon: { iconName: 'sun' },
@@ -88,8 +89,6 @@ export function RoutineTimingDetailCard({
     const headerTextColor = useThemeColor({}, headerTextColorName);
     const iconName = timingProperties[timing as Timing].iconName;
 
-    const { routinesData } = useRoutines();
-
     return (
         <TouchableOpacity style={styles.cardContainer}>
             <View style={[styles.header, { backgroundColor: headerColor }]}>
@@ -99,14 +98,14 @@ export function RoutineTimingDetailCard({
                 </ThemedText>
             </View>
             {
-                routinesData.routines[routineIndex].routineSteps[timing].map((step: RoutineStep, index: number) =>
+                routinesData.routines[routineId].routineSteps[timing].map((step: RoutineStep, index: number) =>
                     editMode ? (
                         <RoutineTimingDetailCardEditableRow
                             key={index}
                             orderBackgroundColor={headerColor}
                             orderTextColorName={headerTextColorName}
                             timing={timing}
-                            routineIndex={routineIndex}
+                            routineId={routineId}
                             stepIndex={index}
                             order={step.order}
                             itemType={step.itemType}

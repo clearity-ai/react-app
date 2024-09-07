@@ -4,7 +4,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 
 // Constants
-import { emptyRoutine, initialRoutinesArray } from '@/constants/Values';
+import { emptyRoutine, initialRoutinesArray, placeholderId } from '@/constants/Values';
 
 export const RoutinesContext = createContext();
 
@@ -34,9 +34,10 @@ export const RoutinesProvider = ({ children }) => {
     }, [user]);
 
     // Update routine name
-    const updateRoutineName = (routineIndex, name) => {
-        const newRoutines = [...routinesData.routines];
-        newRoutines[routineIndex].routineName = name;
+    const updateRoutineName = (routineId, name) => {
+        const newRoutines = { ...routinesData.routines };
+        newRoutines[routineId].routineName = name;
+        newRoutines[routineId].requiresDBupdate = true;
         setRoutinesData({
             ...routinesData,
             routines: newRoutines,
@@ -44,11 +45,12 @@ export const RoutinesProvider = ({ children }) => {
     };
 
     // Update routine step depending on itemType or itemBrand supplied
-    const updateRoutineStep = (routineIndex, timing, stepIndex, itemType, itemBrand) => {
-        console.log(routineIndex, timing, stepIndex, itemType, itemBrand);
-        const newRoutines = [...routinesData.routines];
-        if (itemType !== undefined) newRoutines[routineIndex].routineSteps[timing][stepIndex].itemType = itemType;
-        if (itemBrand !== undefined) newRoutines[routineIndex].routineSteps[timing][stepIndex].itemBrand = itemBrand;
+    const updateRoutineStep = (routineId, timing, stepIndex, itemType, itemBrand) => {
+        console.log(routineId, timing, stepIndex, itemType, itemBrand);
+        const newRoutines = { ...routinesData.routines };
+        if (itemType !== undefined) newRoutines[routineId].routineSteps[timing][stepIndex].itemType = itemType;
+        if (itemBrand !== undefined) newRoutines[routineId].routineSteps[timing][stepIndex].itemBrand = itemBrand;
+        newRoutines[routineId].requiresDBupdate = true;
         setRoutinesData({
             ...routinesData,
             routines: newRoutines,
@@ -56,53 +58,61 @@ export const RoutinesProvider = ({ children }) => {
     };
 
     // Add or remove last step of a routine
-    const updateRoutineSteps = (routineIndex, timing, action) => {
-        const newRoutines = [...routinesData.routines];
+    const updateRoutineSteps = (routineId, timing, action) => {
+        const newRoutines = { ...routinesData.routines };
         if (action === 'add') {
-            const newOrder = newRoutines[routineIndex].routineSteps[timing].length + 1;
-            newRoutines[routineIndex].routineSteps[timing].push({
+            const newOrder = newRoutines[routineId].routineSteps[timing].length + 1;
+            newRoutines[routineId].routineSteps[timing].push({
                 order: newOrder,
                 itemType: '',
                 itemBrand: '',
             });
         } else if (action === 'remove') {
-            newRoutines[routineIndex].routineSteps[timing].pop();
+            newRoutines[routineId].routineSteps[timing].pop();
         }
+        newRoutines[routineId].requiresDBupdate = true;
         setRoutinesData({
             ...routinesData,
             routines: newRoutines,
         });
     };
 
-    const addNewRoutine = () => {
+    const addNewRoutine = (placeholderId) => {
         // Add new routine to routinesData
-        const newRoutines = [...routinesData.routines];
-        newRoutines.push(emptyRoutine);
+        const newRoutines = { ...routinesData.routines };
+        newRoutines[placeholderId] = emptyRoutine;
         setRoutinesData({
             ...routinesData,
             routines: newRoutines,
         });
-    }
-
-    const saveRoutineChanges = () => {
-        // TODO: Update database with new routinesData when user saves changes (right checkmark exce[pt for deleted routines])
-        console.log("Saving routine changes to database");
     };
 
-    const undoRoutineChanges = () => {
-        // TODO: Fetch user's routines from database and update routinesData when user cancels changes (left cross)
-        console.log("Undoing routine changes by (re)fetching from database");
-    };
-
-    const deleteRoutine = (routineIndex) => {
-        const newRoutines = [...routinesData.routines];
-        newRoutines.splice(routineIndex, 1);
+    const deleteRoutine = (routineId) => {
+        const newRoutines = { ...routinesData.routines };
+        if (routineId == placeholderId) {
+            delete newRoutines[placeholderId];
+        } else {
+            newRoutines[routineId].deleted = true;
+            newRoutines[routineId].requiresDBupdate = true;
+        };
         setRoutinesData({
             ...routinesData,
             routines: newRoutines,
         });
-        // TODO: Update database to set routine entry's "deleted" field to true
-    }
+        console.log("Current routinesData:", routinesData);
+        updateRoutinesDB();
+    };
+
+    const updateRoutinesDB = () => {
+        // TODO: save current routinesData to database
+        console.log('pushing routines data to database', routinesData);
+        // TODO: Fetch user's routines from database and update routinesData (gets routines with new IDs)
+    };
+
+    const fetchRoutinesDB = () => {
+        // TODO: undo changes to routinesData by re-fetching from database
+        console.log('fetching routines data from database', routinesData);
+    };
 
     return (
         <RoutinesContext.Provider value={{
@@ -112,8 +122,8 @@ export const RoutinesProvider = ({ children }) => {
             updateRoutineSteps,
             addNewRoutine,
             deleteRoutine,
-            undoRoutineChanges,
-            saveRoutineChanges,
+            updateRoutinesDB,
+            fetchRoutinesDB,
         }}>
             {children}
         </RoutinesContext.Provider>

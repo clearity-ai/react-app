@@ -13,6 +13,9 @@ import { RoutineCard } from '@/components/routine/RoutineCard';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { useRoutines } from '@/hooks/useRoutines';
 
+// Constants
+import { placeholderId } from '@/constants/Values';
+
 // Types
 import { Routine } from '@/constants/Types';
 
@@ -23,7 +26,7 @@ export default function RoutinesScreen() {
   const { routinesData, addNewRoutine } = useRoutines();
 
   // onRoutinePress for each routine card
-  const onRoutinePress = (routineId: string) => {
+  const onRoutinePress = (routineId: string | null) => {
     // Navigate to the routine screens
     router.push({
       pathname: '(routine)/viewable_routine',
@@ -33,11 +36,10 @@ export default function RoutinesScreen() {
 
   // onAddRoutinePress for empty editable routine card
   const onAddRoutinePress = () => {
-    const routineId = "placeholderRoutineId";
-    addNewRoutine();
+    addNewRoutine(placeholderId);
     router.push({
       pathname: '(routine)/editable_routine',
-      params: { routineId },
+      params: { routineId: placeholderId },
     });
   }
 
@@ -45,9 +47,12 @@ export default function RoutinesScreen() {
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <>
         <ThemedView style={styles.mainContainer}>
-          <ScreenTitle title="My Routine" />
+          <ScreenTitle title="My Routines" />
           <ThemedView style={styles.routineListContainer}>
-            {routinesData.routines.map((item: Routine, index: number) => {
+            {Object.values(routinesData.routines as Record<string, Routine>).map((item: Routine, index: number) => {
+              if (item.deleted) {
+                return null;
+              }
               return <RoutineCard
                 key={index}
                 index={index}

@@ -4,6 +4,9 @@ import { Checkin, Routine, RoutineSteps, Timing } from "@/constants/Types";
 // Constant timing values
 export const timings: Timing[] = ["Morning", "Noon", "Afternoon", "Night"]
 
+// Placeholder Id Definition
+export const placeholderId = "placeholderId";
+
 // Initial values for routinesData
 const initialRoutineSteps: RoutineSteps = {
     Morning: [
@@ -20,15 +23,8 @@ const initialRoutineSteps: RoutineSteps = {
         { order: 2, itemType: "Moisturizer", itemBrand: "CeraVe" },
     ],
 }
-const initialRoutineSteps2: RoutineSteps = { ...initialRoutineSteps };
-initialRoutineSteps2.Night = [
-    { order: 1, itemType: "Water", itemBrand: null },
-    { order: 2, itemType: "Dermaroller", itemBrand: "Banish" },
-    { order: 3, itemType: "Water", itemBrand: null },
-    { order: 3, itemType: "Niacinimide Serum", itemBrand: "The Ordinary" },
-]
 export const emptyRoutine: Routine = {
-    routineId: "placeholderRoutineId",
+    routineId: "placeholderId",
     routineName: "",
     daysLogged: 0,
     routineSteps: {
@@ -37,26 +33,24 @@ export const emptyRoutine: Routine = {
         Afternoon: [],
         Night: [],
     },
+    deleted: false,
+    requiresDBupdate: false,
 };
-export const initialRoutinesArray: Routine[] = [
-    {
+export const initialRoutinesArray: { [routineId: string]: Routine } = {
+    "0": {
         routineId: "0",
         routineName: "Example Routine",
         daysLogged: 0,
         routineSteps: initialRoutineSteps,
+        deleted: false,
+        requiresDBupdate: false,
     },
-    {
-        routineId: "1",
-        routineName: "Weekly Dermarolling",
-        daysLogged: 0,
-        routineSteps: initialRoutineSteps2,
-    },
-];
+};
 
 
 // Initial values for checkinData
 const initialCheckinAreas = {
-    0: {
+    "0": {
         areaId: "0",
         areaName: "Face Frontal",
         picture: null,
@@ -64,7 +58,7 @@ const initialCheckinAreas = {
         placeholderPictureURI: require('@/assets/images/default-face-frontal.png'),
         userRating: null,
     },
-    1: {
+    "1": {
         areaId: "1",
         areaName: "Face Left",
         picture: null,
@@ -72,7 +66,7 @@ const initialCheckinAreas = {
         placeholderPictureURI: require('@/assets/images/default-face-left.png'),
         userRating: null,
     },
-    2: {
+    "2": {
         areaId: "2",
         areaName: "Face Right",
         picture: null,
@@ -80,7 +74,7 @@ const initialCheckinAreas = {
         placeholderPictureURI: require('@/assets/images/default-face-right.png'),
         userRating: null,
     },
-    3: {
+    "3": {
         areaId: "3",
         areaName: "Neck & Chest",
         picture: null,
@@ -91,7 +85,6 @@ const initialCheckinAreas = {
 }
 export const initialCheckinData: Checkin = {
     checkinAreas: initialCheckinAreas,
-    checkinId: null,
     userId: null,
     checkinDate: null,
     routineId: null,

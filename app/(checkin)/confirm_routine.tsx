@@ -20,20 +20,21 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { timings } from '@/constants/Values';
 
 // Types
-import { Timing, Routine } from '@/constants/Types';
+import { Timing } from '@/constants/Types';
 import { useRoutines } from '@/hooks/useRoutines';
 
-export default function EditableRoutineScreen() {
+export default function EditableConfirmRoutineScreen() {
     const router = useRouter();
     const { routineId } = useLocalSearchParams(); // Access route params using expo-router
     const strRoutineId = routineId ? String(routineId) : ""; // assert routineId is string
-    const { routinesData, updateRoutineName, updateRoutineSteps, deleteRoutine, fetchRoutinesDB, updateRoutinesDB } = useRoutines()
+    const { routinesData, updateRoutineName, updateRoutineSteps, fetchRoutinesDB, updateRoutinesDB } = useRoutines()
 
     if (!routinesData.routines[strRoutineId]) {
-        router.replace('(tabs)/routines');
+        router.replace('(checkin)/index');
     }
 
     const addOrRemoveIconColor = useThemeColor({}, 'tint');
+
     const setRoutineName = (routineName: string) => {
         updateRoutineName(routineId, routineName);
     };
@@ -46,26 +47,23 @@ export default function EditableRoutineScreen() {
         updateRoutineSteps(routineId, timing, 'remove');
     }
 
-    const onDeleteRoutinePress = () => {
-        deleteRoutine(routineId);
-        router.replace('(tabs)/routines');
-    }
-
     const onCloseWithoutSaving = () => {
         fetchRoutinesDB();
-        router.replace('(tabs)/routines');
+        router.replace('(checkin)');
     }
 
-    const onSaveRoutine = () => {
+    const onConfirmRoutine = () => {
         updateRoutinesDB();
-        router.replace('(tabs)/routines');
+        // TODO: Save new routineId to checkinData
+        // (not necessarily original one due to possible changes)
+        // TODO: Navigate to ratings screen
     }
 
     return (
         <KeyboardAwareScrollView contentContainerStyle={styles.scrollViewContainer}>
             <>
                 <ThemedView style={styles.mainContainer}>
-                    <SimpleHeader title="Edit Routine" onClose={onCloseWithoutSaving} onClick={onSaveRoutine} clickIconName='checkmark' />
+                    <SimpleHeader title="Edit Routine" onClose={onCloseWithoutSaving} onClick={onConfirmRoutine} clickIconName='checkmark' />
                     <ThemedTextInput
                         backgroundColorName='background'
                         borderWidth={1}
@@ -94,9 +92,6 @@ export default function EditableRoutineScreen() {
                             </ThemedView>
                         </ThemedView>
                     ))}
-                    <ThemedView style={styles.buttonContainer}>
-                        <ThemedButton backgroundColorName="error" title='Delete Routine' onPress={onDeleteRoutinePress} />
-                    </ThemedView>
                 </ThemedView>
             </>
         </KeyboardAwareScrollView>

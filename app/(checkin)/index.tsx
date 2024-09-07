@@ -1,36 +1,61 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Alert, Image } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useRouter } from 'expo-router';
-import { launchCamera } from 'react-native-image-picker';
+import { Ionicons } from '@expo/vector-icons';
 
 // Components
 import { ThemedView } from '@/components/ThemedView';
 import { SimpleHeader } from '@/components/navigation/SimpleHeader';
-import { CheckinCard } from '@/components/checkin/CheckinCard';
+import { RoutineCard } from '@/components/routine/RoutineCard';
 
 // Hooks
-import { useCheckin } from '@/hooks/useCheckin';
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { useRoutines } from '@/hooks/useRoutines';
 
 // Types
-import { CheckinArea } from '@/constants/Types';
+import { Routine } from '@/constants/Types';
 
 export default function CheckinScreen() {
     const router = useRouter();
-    const { checkinData, pushCheckinData } = useCheckin();
+    const { routinesData } = useRoutines();
+
+    const addIconColor = useThemeColor({}, 'tint');
+
+    const onRoutinePress = (routineId: string | null) => {
+        // Navigate to the confirm_routine screen
+        router.push({
+            pathname: '(checkin)/confirm_routine',
+            params: { routineId },
+        })
+    };
+
+    const onAddRoutinePress = () => {
+        console.log('Add Routine Pressed');
+    };
 
     return (
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
             <>
                 <ThemedView style={styles.mainContainer}>
-                    <SimpleHeader title="Select Areas" onClose={() => router.navigate('(tabs)')} onClick={pushCheckinData} clickIconName='checkmark' />
-                    <ThemedView style={styles.checkinAreaListContainer}>
-                        {Object.values(checkinData.checkinAreas as Record<string, CheckinArea>).map((item: CheckinArea, index: number) => {
-                            return <CheckinCard
+                    <SimpleHeader title="Which routine are you following today?" onClose={() => router.navigate('(tabs)/home')} />
+                    <ThemedView style={styles.routineListContainer}>
+                        {Object.values(routinesData.routines as Record<string, Routine>).map((item: Routine, index: number) => {
+                            if (item.deleted) {
+                                return null;
+                            }
+                            return <RoutineCard
                                 key={index}
-                                areaId={item.areaId}
+                                index={index}
+                                routine={item}
+                                onPress={() => onRoutinePress(item.routineId)}
                             />;
                         })}
+                        <ThemedView style={styles.addRoutineContainer}>
+                            <TouchableOpacity onPress={onAddRoutinePress}>
+                                <Ionicons name={'add-circle'} size={wp('18%')} color={addIconColor} />
+                            </TouchableOpacity>
+                        </ThemedView>
                     </ThemedView>
                 </ThemedView>
             </>
@@ -49,13 +74,18 @@ const styles = StyleSheet.create({
         width: wp('100%'),
         paddingTop: 0,
     },
-    checkinAreaListContainer: {
+    routineListContainer: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        marginTop: wp('2%'),
-        rowGap: wp('4%'),
-        alignSelf: 'center',
+        rowGap: wp('3%'),
+        flexWrap: "wrap",
+        marginTop: wp('4%'),
 
+    },
+    addRoutineContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
