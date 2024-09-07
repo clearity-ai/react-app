@@ -47,7 +47,7 @@ export default function TabLayout() {
           },
         }}>
         <Tabs.Screen
-          name="index"
+          name="home"
           options={{
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
@@ -55,7 +55,7 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="routines"
+          name="routine"
           options={{
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'infinite' : 'infinite-outline'} color={color} />

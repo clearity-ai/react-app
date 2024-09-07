@@ -45,7 +45,7 @@ export default function RoutinesScreen() {
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <>
         <ThemedView style={styles.mainContainer}>
-          <ScreenTitle title="Routines" />
+          <ScreenTitle title="My Routine" />
           <ThemedView style={styles.routineListContainer}>
             {routinesData.routines.map((item: Routine, index: number) => {
               return <RoutineCard
